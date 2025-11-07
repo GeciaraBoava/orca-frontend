@@ -1,0 +1,36 @@
+@import "../../../styles/variables.scss";
+
+.input-wrapper {
+  color: $secondary-color;
+  font-size: 16px;
+  text-align: start;
+
+  label {
+    margin-bottom: 10px;
+  }
+
+  .input-content {
+    display: flex;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: $gray-secondary-bg;
+
+    input {
+      border: none;
+      background-color: transparent;
+      padding: 12px 0 12px 20px;
+      width: 100%;
+    }
+
+    .icon {
+      padding: 12px;
+      background-color: $primary-color;
+
+      img {
+        height: 20px;
+      }
+    }
+  }
+}
+
