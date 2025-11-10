@@ -6,6 +6,7 @@ main {
   align-items: center;
   justify-content: center;
   height: 100%;
+  background-color: $primary-color;
 
   section {
     height: 100%;
@@ -18,12 +19,15 @@ main {
   .main-section {
     gap: 8px;
     flex: 1;
-    background-color: $details1-color;
   }
 
   .form-section {
+    border-radius: 12px;
+    height: 80%;
+    margin: 60px;
     flex: 0.3;
-    padding: 0 100px 0 0;
+    padding: 0 50px 0 50px;
+    background-color: $details3-color;
 
     img {
       max-width: 70%;
@@ -73,13 +77,15 @@ main {
 
         &.btn-primary {
           background-color: $secondary-color;
-          color: $details1-color;
+          color: $details3-color;
           box-shadow: 0px 8px 12px rgba(148.23004603385925, 64.33935597538948, 255, 0.2);
         }
 
         &.btn-secondary {
           border: 1px solid $secondary-color;
           color: $secondary-color;
+          background-color: $details3-color;
+          margin-bottom: 40px;
         }
       }
     }
