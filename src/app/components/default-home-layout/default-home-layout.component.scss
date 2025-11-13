@@ -1,0 +1,158 @@
+@import "../../../styles/variables.scss";
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: $gray-secondary-bg;
+  height: clamp(5vh, 10vw, 7vh);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 2vw;
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .logo-image {
+      height: 2.2em;
+      width: auto;
+      aspect-ratio: 1 / 1;
+      flex-shrink: 0;
+    }
+
+    a {
+      text-decoration: none;
+      h1 {
+        font-size: clamp(1.2rem, 2vw, 2.4rem);
+        margin: 0;
+        color: $secondary-color;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    a {
+      text-decoration: none;
+      color: $primary-color;
+      font-weight: 500;
+      font-size: clamp(0.9rem, 2vw, 1.2rem);
+      transition: color 0.2s ease-in-out, transform 0.2s;
+
+      &:hover {
+        color: $details1-color;
+        transform: scale(1.05);
+      }
+    }
+
+
+  }
+
+  .menu-icon {
+    display: none;
+    font-size: 2rem;
+    color: $primary-color;
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+  }
+
+  .user-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    span {
+      color: $primary-color;
+      white-space: nowrap;
+    }
+
+    button {
+      background: $primary-color;
+      border: 1px solid $primary-color;
+      color: $gray-secondary-bg;
+      padding: 0.7rem 2rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+
+  #menu-toggle {
+    display: none;
+  }
+
+  @media (max-width: 1500px) {
+    .menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: clamp(8vh, 10vw, 10vh);
+      right: 0;
+      width: 200px;
+      background-color: $details1-color;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+      a {
+        text-align: center;
+        padding: 0.5rem 0;
+        width: 100%;
+      }
+    }
+
+    .menu-icon {
+      display: block;
+      order: 1;
+    }
+
+    .user-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      order: 2;
+    }
+
+    #menu-toggle:checked ~ .menu {
+      display: flex;
+      animation: slideDown 0.3s ease-out;
+    }
+  }
+
+}
+
+main {
+  height: 100%;
+  padding: 2rem;
+  margin-top: clamp(5vh, 10vw, 7vh);
+}
+
+footer {
+  background-color: $primary-color;
+  color: $gray-secondary-bg;
+  text-align: center;
+  font-size: clamp(0.4rem, 1vw, 0.9rem);
+  padding: 0.6rem;
+  position: sticky;
+  bottom: 0;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

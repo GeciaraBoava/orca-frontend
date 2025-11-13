@@ -1,0 +1,33 @@
+<header>
+    <div class="logo">
+        <img class="logo-image" src="images/simbolo.png" alt="Símbolo logo">
+        <a routerLink="/home" (click)="navigate('/home')">
+          <h1>Orca System</h1>
+        </a>
+    </div>
+
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="menu-icon">☰</label>
+
+    <nav class="menu">
+      <a routerLink="/budgets" (click)="navigate('/budgets')">Orçamentos</a>
+      <a routerLink="/productItems" (click)="navigate('/productItems')">Composições</a>
+      <a routerLink="/suppliers" (click)="navigate('/suppliers')">Fornecedores</a>
+      <a routerLink="/materials" (click)="navigate('/materials')">Materiais</a>
+      <a routerLink="/customers" (click)="navigate('/customers')">Clientes</a>
+      <a routerLink="/users" (click)="navigate('/users')">Usuários</a>
+      <a routerLink="/config" (click)="navigate('/config')">Configurações</a>
+    </nav>
+  <section class="user-section">
+    <span>Olá, {{ name }}</span>
+    <button (click)="logout()">Sair</button>
+  </section>
+</header>
+
+<main>
+  <ng-content></ng-content>
+</main>
+
+<footer class="footer">
+  <p>&copy; {{ currentYear }} Orca System. Todos os direitos reservados.</p>
+</footer>
