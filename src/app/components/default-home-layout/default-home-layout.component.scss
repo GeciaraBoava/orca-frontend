@@ -13,28 +13,21 @@ header {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 2vw;
 
-  .logo {
+  a {
     display: flex;
     align-items: center;
     gap: 1rem;
+    text-decoration: none;
 
     .logo-image {
       height: 2.2em;
       width: auto;
-      aspect-ratio: 1 / 1;
       flex-shrink: 0;
-    }
-
-    a {
-      text-decoration: none;
-      h1 {
-        font-size: clamp(1.2rem, 2vw, 2.4rem);
-        margin: 0;
-        color: $secondary-color;
-        white-space: nowrap;
-      }
+      display: block;
+      object-fit: contain;
     }
   }
+
 
   .menu {
     display: flex;
