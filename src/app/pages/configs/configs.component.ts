@@ -7,9 +7,9 @@ import {DefaultHomeLayoutComponent} from '../../components/default-home-layout/d
   imports: [
     DefaultHomeLayoutComponent
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './configs.component.html',
+  styleUrl: './configs.component.scss',
 })
-export class HomeComponent {
+export class ConfigsComponent {
 
 }

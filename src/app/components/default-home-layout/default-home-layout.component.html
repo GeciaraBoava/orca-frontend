@@ -1,30 +1,70 @@
-<header>
+<body>
+  <header>
     <a routerLink="/home">
       <img class="logo-image" src="images/logo-escura.png" alt="Símbolo logo">
     </a>
+    <h2 class="page-name">{{ pageTitle }}</h2>
+    <section class="user-section">
+      <div class="identity">
+        <span class="name">{{ name }}</span>
+        <span class="role">{{ role }}</span>
+      </div>
+      <div>
+        <button (click)="logout()">Sair</button>
+      </div>
+    </section>
+  </header>
 
-    <input type="checkbox" id="menu-toggle" />
-    <label for="menu-toggle" class="menu-icon">☰</label>
-
+  <!-- Sidebar Desktop -->
+  <aside class="sidebar">
     <nav class="menu">
-      <a routerLink="/budgets" (click)="navigate('/budgets')">Orçamentos</a>
-      <a routerLink="/productItems" (click)="navigate('/productItems')">Composições</a>
-      <a routerLink="/suppliers" (click)="navigate('/suppliers')">Fornecedores</a>
-      <a routerLink="/materials" (click)="navigate('/materials')">Materiais</a>
-      <a routerLink="/customers" (click)="navigate('/customers')">Clientes</a>
-      <a routerLink="/users" (click)="navigate('/users')">Usuários</a>
-      <a routerLink="/config" (click)="navigate('/config')">Configurações</a>
+      <a routerLink="/budgets" routerLinkActive="active">
+        <span class="material-icons">request_quote</span>
+        <span class="label">Orçamentos</span>
+      </a>
+
+      <a routerLink="/products" routerLinkActive="active">
+        <span class="material-icons">shopping_basket</span>
+        <span class="label">Produtos</span>
+      </a>
+
+      <a routerLink="/compositions" routerLinkActive="active">
+        <span class="material-icons">inventory_2</span>
+        <span class="label">Composições</span>
+      </a>
+
+      <a routerLink="/materials" routerLinkActive="active">
+        <span class="material-icons">layers</span>
+        <span class="label">Materiais</span>
+      </a>
+
+      <a routerLink="/suppliers" routerLinkActive="active">
+        <span class="material-icons">local_shipping</span>
+        <span class="label">Fornecedores</span>
+      </a>
+
+      <a routerLink="/customers" routerLinkActive="active">
+        <span class="material-icons">people</span>
+        <span class="label">Clientes</span>
+      </a>
+
+      <a routerLink="/users" routerLinkActive="active">
+        <span class="material-icons">manage_accounts</span>
+        <span class="label">Usuários</span>
+      </a>
+
+      <a routerLink="/config" routerLinkActive="active">
+        <span class="material-icons">settings</span>
+        <span class="label">Configurações</span>
+      </a>
+
     </nav>
-  <section class="user-section">
-    <span>Olá, {{ name }}</span>
-    <button (click)="logout()">Sair</button>
+  </aside>
+
+  <section class="section-content">
+    <ng-content></ng-content>
   </section>
-</header>
-
-<main>
-  <ng-content></ng-content>
-</main>
-
-<footer class="footer">
-  <p>&copy; {{ currentYear }} Orca System. Todos os direitos reservados.</p>
-</footer>
+  <footer class="footer">
+    <p>&copy; {{ currentYear }} Orca System. Todos os direitos reservados. Por Geciara Boava.</p>
+  </footer>
+</body>

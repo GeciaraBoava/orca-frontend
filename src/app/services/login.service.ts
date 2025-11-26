@@ -17,7 +17,7 @@ export class LoginService {
         tap((response) => { //tap - retorna um valor síncrono
           sessionStorage.setItem("auth-token", response.token)
           sessionStorage.setItem("name", response.name)
-
+          sessionStorage.setItem("role", response.role)
         })
       )
   }

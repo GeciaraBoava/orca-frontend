@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MenuSuspenso } from './menu-suspenso';
+import { CompositionsComponent } from './compositions.component';
 
-describe('MenuSuspenso', () => {
-  let component: MenuSuspenso;
-  let fixture: ComponentFixture<MenuSuspenso>;
+describe('BudgetsComponent', () => {
+  let component: CompositionsComponent;
+  let fixture: ComponentFixture<CompositionsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MenuSuspenso]
+      imports: [CompositionsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MenuSuspenso);
+    fixture = TestBed.createComponent(CompositionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

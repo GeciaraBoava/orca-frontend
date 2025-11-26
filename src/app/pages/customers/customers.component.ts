@@ -3,13 +3,13 @@ import {DefaultLoginLayoutComponent} from "../../components/default-login-layout
 import {DefaultHomeLayoutComponent} from '../../components/default-home-layout/default-home-layout.component';
 
 @Component({
-  selector: 'app-home.component',
+  selector: 'app-users',
   imports: [
     DefaultHomeLayoutComponent
   ],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  templateUrl: './customers.component.html',
+  styleUrl: './customers.component.scss',
 })
-export class HomeComponent {
+export class CustomersComponent {
 
 }
