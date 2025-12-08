@@ -1,3 +1,32 @@
-<app-default-home-layout pageTitle="Gestão de Usuários">
-
+<app-default-home-layout pageTitle="Gestão de Usuários" (submit)="submit()">
+  <main>
+    <section class="cards">
+      <div class="card">
+        <div class="card-label">
+          <span class="label">Total de Usuários Cadastrados</span>
+          <span class="quantity">2.000</span>
+        </div>
+        <span class="layers material-icons">layers</span>
+      </div>
+      <div class="card">
+        <div class="card-label">
+          <span class="label">Total de Usuários Ativos</span>
+          <span class="quantity">1.800</span>
+        </div>
+        <span class="check material-icons">check_box</span>
+      </div>
+      <div class="card">
+        <div class="card-label">
+          <span class="label">Total de Usuários Inativos</span>
+          <span class="quantity">200</span>
+        </div>
+        <span class="disabled material-icons-round">disabled_by_default</span>
+      </div>
+    </section>
+    <app-default-table-layout
+      [data]="users"
+      [columns]="userColumns"
+      [pageSize]="5">
+    </app-default-table-layout>
+  </main>
 </app-default-home-layout>

@@ -21,7 +21,7 @@ export class DefaultHomeLayoutComponent {
   constructor(private router: Router) {}
 
   logout(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem('auth-token');
     localStorage.removeItem('name');
     localStorage.removeItem('role');
     this.router.navigate(['/login']);
