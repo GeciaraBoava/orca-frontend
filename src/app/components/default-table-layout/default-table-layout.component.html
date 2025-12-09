@@ -1,0 +1,52 @@
+<div class="table-wrapper">
+
+  <section class="table-functions">
+    <input type="text" placeholder="Digite um nome para buscar" (input)="onSearch($event)" />
+    <div class="buttons">
+      <button class="load"><i class="material-icons">upload</i>Importar</button>
+      <button class="load"><i class="material-icons">publish</i>Exportar</button>
+      <button class="add"><i class="material-icons">add</i>Cadastrar Novo</button>
+    </div>
+  </section>
+
+  <table>
+    <thead>
+      <tr class="head">
+        @for (col of columns; track col.key) { <!-- track col.key - usa o nome da coluna como identificador -->
+          <th (click)="toggleSort(col.key)"> <!-- chama toggleSort('nomeDaColuna') para ordenar. -->
+            {{ col.label }} <!-- Cabeçalho -->
+            @if (sortKey === col.key) {<span>{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>} <!-- Ordenação -->
+          </th>
+        }
+      </tr>
+
+      <tr class="filter">
+        @for (col of columns; track col.key) {
+          <th>
+            @if (col.filterable) {
+              <input
+                type="text"
+                placeholder="Filtrar"
+                (input)="onFilter(col.key, $event)"
+              />
+            }
+          </th>
+        }
+      </tr>
+    </thead>
+
+    <tbody> <!-- Corpo da tabela -->
+      @for (item of paginatedData; track item) {
+        <tr>
+          @for (col of columns; track col.key) {<td>{{ item[col.key] }}</td>}
+        </tr>
+      }
+    </tbody>
+
+  </table>
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+    <span>{{ currentPage }} / {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Próxima</button>
+  </div>
+</div>
