@@ -36,8 +36,10 @@
     <app-user-modal
       [isOpen]="isModalOpen"
       [user]="selectedUser"
+      [isUserProfile]="false"
       (close)="onCloseModal()"
       (save)="onSaveUser($event)"
+      (changePassword)="$event"
     ></app-user-modal>
   </main>
 </app-default-home-layout>

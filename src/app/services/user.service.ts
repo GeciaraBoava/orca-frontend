@@ -62,4 +62,11 @@ export class UserService {
   update(id: number, dto: UserUpdateRequestDTO): Observable<UserResponseDTO> {
     return this.httpClient.put<UserResponseDTO>(`${this.apiUrl}/${id}`, dto, { headers: this.getAuthHeaders() })
   }
+
+  updatePassword(id: number, newPassword: string): Observable<void> {
+    return this.httpClient.put<void>(
+      `${this.apiUrl}/usuario/${id}/senha`,
+      newPassword, { headers: this.getAuthHeaders(), responseType: 'text' as 'json' }
+    );
+  }
 }

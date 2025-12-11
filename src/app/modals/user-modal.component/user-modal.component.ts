@@ -26,8 +26,10 @@ export interface UserResponseDTO {
 export class UserModalComponent implements OnInit {
   @Input() isOpen = false;
   @Input() user: UserResponseDTO | null = null; // null = cadastro, com dados = edição
+  @Input() isUserProfile = false;
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<UserResponseDTO>();
+  @Output() changePassword = new EventEmitter<{ userId: number; currentPassword?: string; newPassword: string }>();
 
   userForm!: FormGroup;
   isEditMode = false;
@@ -46,7 +48,6 @@ export class UserModalComponent implements OnInit {
       this.isEditMode = !!this.user;
       this.initForm();
       if (this.user) {
-        // Aplica a máscara no telefone antes de preencher o formulário
         const userWithMaskedPhone = {
           ...this.user,
           phoneNumber: this.applyPhoneMask(this.user.phoneNumber)
@@ -71,7 +72,7 @@ export class UserModalComponent implements OnInit {
       newPassword: [''],
       confirmPassword: ['']
     }, {
-      validators: this.passwordMatchValidator // Validador customizado
+      validators: this.passwordMatchValidator
     });
   }
 
@@ -79,15 +80,8 @@ export class UserModalComponent implements OnInit {
     const newPassword = formGroup.get('newPassword')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
 
-    if (!newPassword && !confirmPassword) {
-      return null;
-    }
+    if (!newPassword && !confirmPassword) { return null; }
 
-    if (newPassword && !formGroup.get('currentPassword')?.value) {
-      return { currentPasswordRequired: true };
-    }
-
-    // Verifica se as senhas coincidem
     return newPassword === confirmPassword ? null : { passwordMismatch: true };
   }
 
@@ -97,22 +91,58 @@ export class UserModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.userForm.valid) {
+    if (this.isEditMode && this.isUserProfile) {
+      const newPassword = this.userForm.get('newPassword')?.value;
+      const currentPassword = this.userForm.get('currentPassword')?.value;
+
+      if (newPassword && !currentPassword) {
+        this.userForm.get('currentPassword')?.markAsTouched();
+        return;
+      }
+    }
+
+    const newPassword = this.userForm.get('newPassword')?.value;
+    const confirmPassword = this.userForm.get('confirmPassword')?.value;
+
+    if (newPassword && newPassword !== confirmPassword) {
+      this.userForm.get('confirmPassword')?.markAsTouched();
+      return;
+    }
+
+    const mainFieldsValid = this.userForm.get('name')?.valid &&
+      this.userForm.get('email')?.valid &&
+      this.userForm.get('phoneNumber')?.valid &&
+      this.userForm.get('address')?.valid &&
+      this.userForm.get('city')?.valid &&
+      this.userForm.get('uf')?.valid &&
+      this.userForm.get('role')?.valid;
+
+    if (mainFieldsValid) {
       const formValue = this.userForm.value;
 
-      const userData: UserResponseDTO = {
-        ...formValue,
+      const userData: any = {
+        role: formValue.role,
+        name: formValue.name,
+        phoneNumber: formValue.phoneNumber,
+        email: formValue.email,
+        address: formValue.address,
+        city: formValue.city,
+        uf: formValue.uf,
+        active: formValue.active,
         ...(this.isEditMode && this.user ? { id: this.user.id } : {})
       };
 
-      // if (this.isEditMode && formValue.newPassword) {
-      //   userData.password = formValue.newPassword;
-      //   userData.currentPassword = formValue.currentPassword;
-      // }
-
       this.save.emit(userData);
+
+      if (this.isEditMode && this.user?.id && formValue.newPassword) {
+        this.changePassword.emit({
+          userId: this.user.id,
+          currentPassword: this.isUserProfile ? formValue.currentPassword : undefined,
+          newPassword: formValue.newPassword
+        });
+      }
+
       this.userForm.reset();
-      this.close.emit();
     } else {
       Object.keys(this.userForm.controls).forEach(key => {
         this.userForm.get(key)?.markAsTouched();
@@ -150,6 +180,16 @@ export class UserModalComponent implements OnInit {
   isFieldInvalid(fieldName: string): boolean {
     const field = this.userForm.get(fieldName);
     return !!(field && field.invalid && field.touched);
+  }
+
+  hasPasswordMismatch(): boolean {
+    return this.userForm.hasError('passwordMismatch') &&
+      this.userForm.get('confirmPassword')?.touched || false;
+  }
+
+  hasCurrentPasswordError(): boolean {
+    return this.userForm.hasError('currentPasswordRequired') &&
+      this.userForm.get('newPassword')?.touched || false;
   }
 
   getErrorMessage(fieldName: string): string {

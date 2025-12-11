@@ -15,7 +15,6 @@
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
           <div class="form-row">
-            <!-- Nome -->
             <div class="form-group full-width">
               <label for="name">Nome Completo *</label>
               <input
@@ -32,7 +31,6 @@
           </div>
 
           <div class="form-row">
-            <!-- E-mail -->
             <div class="form-group full-width">
               <label for="email">E-mail *</label>
               <input
@@ -48,35 +46,59 @@
             </div>
           </div>
 
+          @if (isEditMode) {
+            <div class="password-section">
+              @if (isUserProfile) {
+                <div class="form-row">
+                  <div class="form-group full-width">
+                    <label for="currentPassword">Senha Atual *</label>
+                    <input
+                      id="currentPassword"
+                      type="password"
+                      formControlName="currentPassword"
+                      placeholder="Digite a senha atual"
+                      [class.invalid]="hasCurrentPasswordError()"
+                    />
+                    @if (hasCurrentPasswordError()) {
+                      <span class="error-message">Senha atual obrigatória para alterar senha</span>
+                    }
+                  </div>
+                </div>
+              }
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="newPassword">Nova Senha</label>
+                  <input
+                    id="newPassword"
+                    type="password"
+                    formControlName="newPassword"
+                    placeholder="Digite a nova senha"
+                    [class.invalid]="isFieldInvalid('newPassword')"
+                  />
+                  @if (isFieldInvalid('newPassword')) {
+                    <span class="error-message">{{ getErrorMessage('newPassword') }}</span>
+                  }
+                </div>
+
+                <div class="form-group">
+                  <label for="confirmPassword">Confirmar Nova Senha</label>
+                  <input
+                    id="confirmPassword"
+                    type="password"
+                    formControlName="confirmPassword"
+                    placeholder="Confirme a nova senha"
+                    [class.invalid]="hasPasswordMismatch()"
+                  />
+                  @if (hasPasswordMismatch()) {
+                    <span class="error-message">As senhas não coincidem</span>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+
           <div class="form-row">
-            <!-- Senha -->
-            <div class="form-group">
-              <label for="password">Senha atual *</label>
-
-              @if (isFieldInvalid('password')) {
-
-              }
-            </div>
-
-            <div class="form-group">
-              <label for="password">Senha Nova *</label>
-
-              @if (isFieldInvalid('password')) {
-
-              }
-            </div>
-
-            <div class="form-group">
-              <label for="password">Confirma Senha Nova *</label>
-
-              @if (isFieldInvalid('password')) {
-
-              }
-            </div>
-          </div>
-
-          <div class="form-row">
-            <!-- Permissão -->
             <div class="form-group">
               <label for="role">Permissão *</label>
               <select
@@ -92,8 +114,6 @@
                 <span class="error-message">{{ getErrorMessage('role') }}</span>
               }
             </div>
-
-            <!-- Telefone -->
             <div class="form-group">
               <label for="phone">Telefone *</label>
               <input
@@ -111,7 +131,6 @@
           </div>
 
           <div class="form-row">
-            <!-- Endereço -->
             <div class="form-group full-width">
               <label for="address">Endereço *</label>
               <input
@@ -128,7 +147,6 @@
           </div>
 
           <div class="form-row">
-            <!-- Cidade -->
             <div class="form-group">
               <label for="city">Cidade *</label>
               <input
@@ -142,8 +160,6 @@
                 <span class="error-message">{{ getErrorMessage('city') }}</span>
               }
             </div>
-
-            <!-- UF -->
             <div class="form-group">
               <label for="uf">UF *</label>
               <select
@@ -165,7 +181,6 @@
         </form>
       </div>
 
-      <!-- Footer -->
       <div class="modal-footer">
         <button type="button" class="btn-cancel" (click)="onClose()">
           Cancelar
