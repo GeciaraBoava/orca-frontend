@@ -3,31 +3,37 @@
   <section class="table-functions">
     <input type="text" placeholder="Digite um nome para buscar" (input)="onSearch($event)" />
     <div class="buttons">
-      <button class="load"><i class="material-icons">upload</i>Importar</button>
-      <button class="load"><i class="material-icons">publish</i>Exportar</button>
-      <button class="add"><i class="material-icons">add</i>Cadastrar Novo</button>
+      @if (showLoads) {
+        <ng-container>
+          <button class="load"><i class="material-icons">upload</i>Importar</button>
+          <button class="load"><i class="material-icons">publish</i>Exportar</button>
+        </ng-container>
+      }
+      <button class="add" (click)="onCreate()"><i class="material-icons">add</i>Cadastrar Novo</button>
     </div>
   </section>
 
   <table>
     <thead>
       <tr class="head">
-        @for (col of columns; track col.key) { <!-- track col.key - usa o nome da coluna como identificador -->
-          <th (click)="toggleSort(col.key)"> <!-- chama toggleSort('nomeDaColuna') para ordenar. -->
-            {{ col.label }} <!-- Cabeçalho -->
-            @if (sortKey === col.key) {<span>{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>} <!-- Ordenação -->
+        @for (col of columns; track $index) {
+          <th (click)="onSortClick(col.key)">
+            {{ col.label }}
+            @if (sortKey === col.key) {
+              <span>{{ sortDirection === 'asc' ? '▲' : '▼' }}</span>
+            }
           </th>
         }
       </tr>
 
       <tr class="filter">
-        @for (col of columns; track col.key) {
+        @for (col of columns; track $index) {
           <th>
-            @if (col.filterable) {
+            @if (col.filterable && col.type !== 'actions') {
               <input
                 type="text"
                 placeholder="Filtrar"
-                (input)="onFilter(col.key, $event)"
+                (input)="onFilterInput(col.key, $event)"
               />
             }
           </th>
@@ -35,10 +41,35 @@
       </tr>
     </thead>
 
-    <tbody> <!-- Corpo da tabela -->
+    <tbody>
       @for (item of paginatedData; track item) {
-        <tr>
-          @for (col of columns; track col.key) {<td>{{ item[col.key] }}</td>}
+        <tr class="line">
+          @for (col of columns; track col.key) {
+            <td class="cell">
+              @if (col.type === 'actions') {
+                <button class="action-btn" (click)="onEdit(item)">
+                  <i class="material-icons ">edit</i>
+                </button>
+              } @else if (col.type === 'toggle') {
+                <label class="toggle-checkbox">
+                  <input
+                    type="checkbox"
+                    [checked]="getValue(item, col.key)"
+                    (change)="onToggleStatus(item)"
+                  />
+                  <span class="toggle-slider"></span>
+                </label>
+              } @else if (col.type === 'boolean') {
+                @if (getValue(item, col.key)) {
+                  <i class="material-icons icon-true">check_box</i>
+                } @else {
+                  <i class="material-icons-round icon-false">disabled_by_default</i>
+                }
+              } @else {
+                {{ getValue(item, col.key) }}
+              }
+            </td>
+          }
         </tr>
       }
     </tbody>

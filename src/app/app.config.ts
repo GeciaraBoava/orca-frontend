@@ -9,14 +9,15 @@ import { routes } from './app.routes';
 import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { tokenInterceptor } from './interceptors/token.interceptor';
+import {provideAnimations} from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
+    provideAnimations(),
     provideHttpClient(
-      withFetch(),
       withInterceptors([tokenInterceptor])
     ),
     provideToastr()

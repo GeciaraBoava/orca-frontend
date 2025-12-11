@@ -1,0 +1,181 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="onClose()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h2>{{ isEditMode ? 'Editar Usuário' : 'Cadastrar Novo Usuário' }}</h2>
+        <button class="close-btn" (click)="onClose()">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+          <div class="form-row">
+            <!-- Nome -->
+            <div class="form-group full-width">
+              <label for="name">Nome Completo *</label>
+              <input
+                id="name"
+                type="text"
+                formControlName="name"
+                placeholder="Digite o nome completo"
+                [class.invalid]="isFieldInvalid('name')"
+              />
+              @if (isFieldInvalid('name')) {
+                <span class="error-message">{{ getErrorMessage('name') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- E-mail -->
+            <div class="form-group full-width">
+              <label for="email">E-mail *</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                placeholder="exemplo@email.com"
+                [class.invalid]="isFieldInvalid('email')"
+              />
+              @if (isFieldInvalid('email')) {
+                <span class="error-message">{{ getErrorMessage('email') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Senha -->
+            <div class="form-group">
+              <label for="password">Senha atual *</label>
+
+              @if (isFieldInvalid('password')) {
+
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="password">Senha Nova *</label>
+
+              @if (isFieldInvalid('password')) {
+
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="password">Confirma Senha Nova *</label>
+
+              @if (isFieldInvalid('password')) {
+
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Permissão -->
+            <div class="form-group">
+              <label for="role">Permissão *</label>
+              <select
+                id="role"
+                formControlName="role"
+                [class.invalid]="isFieldInvalid('role')"
+              >
+                @for (role of roles; track role) {
+                  <option [value]="role">{{ role }}</option>
+                }
+              </select>
+              @if (isFieldInvalid('role')) {
+                <span class="error-message">{{ getErrorMessage('role') }}</span>
+              }
+            </div>
+
+            <!-- Telefone -->
+            <div class="form-group">
+              <label for="phone">Telefone *</label>
+              <input
+                id="phone"
+                type="text"
+                formControlName="phoneNumber"
+                placeholder="(00) 00000-0000"
+                (input)="onPhoneInput($event)"
+                [class.invalid]="isFieldInvalid('phoneNumber')"
+              />
+              @if (isFieldInvalid('phoneNumber')) {
+                <span class="error-message">{{ getErrorMessage('phoneNumber') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Endereço -->
+            <div class="form-group full-width">
+              <label for="address">Endereço *</label>
+              <input
+                id="address"
+                type="text"
+                formControlName="address"
+                placeholder="Rua, número, complemento"
+                [class.invalid]="isFieldInvalid('address')"
+              />
+              @if (isFieldInvalid('address')) {
+                <span class="error-message">{{ getErrorMessage('address') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <!-- Cidade -->
+            <div class="form-group">
+              <label for="city">Cidade *</label>
+              <input
+                id="city"
+                type="text"
+                formControlName="city"
+                placeholder="Nome da cidade"
+                [class.invalid]="isFieldInvalid('city')"
+              />
+              @if (isFieldInvalid('city')) {
+                <span class="error-message">{{ getErrorMessage('city') }}</span>
+              }
+            </div>
+
+            <!-- UF -->
+            <div class="form-group">
+              <label for="uf">UF *</label>
+              <select
+                id="uf"
+                formControlName="uf"
+                [class.invalid]="isFieldInvalid('uf')"
+              >
+                <option value="">Selecione</option>
+                @for (uf of ufs; track uf) {
+                  <option [value]="uf">{{ uf }}</option>
+                }
+              </select>
+              @if (isFieldInvalid('uf')) {
+                <span class="error-message">{{ getErrorMessage('uf') }}</span>
+              }
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="onClose()">
+          Cancelar
+        </button>
+        <button type="button" class="btn-save" (click)="onSubmit()" [disabled]="userForm.invalid">
+          <i class="material-icons">save</i>
+          Salvar
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

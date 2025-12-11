@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {RegisterResponse} from '../types/register-response.type';
 import {Observable} from 'rxjs';
 
 export interface UserResponseDTO {
@@ -17,6 +16,28 @@ export interface UserResponseDTO {
   updatedAt: Date;
 }
 
+export interface UserRequestDTO {
+  role: string;
+  name: string;
+  phoneNumber: string;
+  email: string;
+  address: string;
+  city: string;
+  uf: string;
+}
+
+export interface UserUpdateRequestDTO {
+  password: string;
+  role: string;
+  name: string;
+  phoneNumber: string;
+  email: string;
+  address: string;
+  city: string;
+  uf: string;
+  active: boolean
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -25,27 +46,20 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) { }
 
-  register(
-    password: string,
-    role: string,
-    name: string,
-    phoneNumber: string,
-    email: string,
-    address: string,
-    city: string,
-    uf: string
-  ) {
-    return this.httpClient.post<RegisterResponse>(this.apiUrl, {
-      password, role, name, phoneNumber, email, address, city, uf
-    })
+  private getAuthHeaders(): HttpHeaders {
+    const token = sessionStorage.getItem('auth-token') || '';
+    return new HttpHeaders({ Authorization: `Bearer ${token}` });
   }
 
   listAll(): Observable<UserResponseDTO[]> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-    return this.httpClient.get<UserResponseDTO[]>(this.apiUrl, { headers });
+    return this.httpClient.get<UserResponseDTO[]>(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
+  save(dto: UserRequestDTO): Observable<UserResponseDTO> {
+    return this.httpClient.post<UserResponseDTO>(this.apiUrl, dto, { headers: this.getAuthHeaders() })
+  }
+
+  update(id: number, dto: UserUpdateRequestDTO): Observable<UserResponseDTO> {
+    return this.httpClient.put<UserResponseDTO>(`${this.apiUrl}/${id}`, dto, { headers: this.getAuthHeaders() })
+  }
 }

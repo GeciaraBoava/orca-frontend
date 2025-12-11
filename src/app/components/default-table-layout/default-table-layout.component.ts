@@ -1,17 +1,17 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 export interface ColumnConfig<T extends object> {
-  key: keyof T;
+  key: keyof T | 'actions';
   label: string;
   searchable?: boolean;
   filterable?: boolean;
+  type?: 'text' | 'boolean' | 'actions' | 'toggle';
 }
 
 @Component({
   selector: 'app-default-table-layout',
   standalone: true,
-  imports: [
-  ],
+  imports: [],
   templateUrl: './default-table-layout.component.html',
   styleUrl: './default-table-layout.component.scss',
 })
@@ -19,8 +19,12 @@ export class DefaultTableLayoutComponent<T extends object> {
   @Input() data: T[] = [];
   @Input() columns: ColumnConfig<T>[] = [];
   @Input() pageSize = 5;
+  @Input() showLoads: boolean = true;
 
-  // estado interno
+  @Output() editClicked = new EventEmitter<T>();
+  @Output() createClicked = new EventEmitter<void>();
+  @Output() toggleStatus = new EventEmitter<T>();
+
   searchTerm = '';
   columnFilters: Record<string, string> = {};
   currentPage = 1;
@@ -28,7 +32,21 @@ export class DefaultTableLayoutComponent<T extends object> {
   sortKey: keyof T | null = null;
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  // ------ MÉTODOS PRINCIPAIS ------ //
+  isDataKey(key: keyof T | 'actions'): key is keyof T {
+    return key !== 'actions';
+  }
+
+  getValue(item: T, key: keyof T | 'actions'): any {
+    return this.isDataKey(key) ? item[key] : null;
+  }
+
+  onEdit(item: any) {
+    this.editClicked.emit(item);
+  }
+
+  onCreate() {
+    this.createClicked.emit();
+  }
 
   onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -42,13 +60,29 @@ export class DefaultTableLayoutComponent<T extends object> {
     this.currentPage = 1;
   }
 
+  onSortClick(key: keyof T | 'actions') {
+    if (key === 'actions') return;
+    this.toggleSort(key);
+  }
+
+  onFilterInput(key: keyof T | 'actions', event: Event) {
+    if (key === 'actions') return;
+    this.onFilter(key, event);
+  }
+
   toggleSort(key: keyof T) {
+    if (key === 'actions') return;
+
     if (this.sortKey === key) {
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortDirection = 'asc';
     }
-    this.sortKey = key;
+    this.sortKey = key as keyof T;
+  }
+
+  onToggleStatus(item: T) {
+    this.toggleStatus.emit(item);
   }
 
   get filteredData(): T[] {
