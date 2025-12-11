@@ -42,18 +42,32 @@ header {
     align-items: center;
     gap: 1rem;
     padding: 0 2rem;
+    margin-right: 0.5rem;
 
-    .identity {
+    .user-data {
       display: flex;
-      flex-direction: column;
-      align-items: end;
-      color: $gray-secondary-bg;
-      white-space: nowrap;
+      gap: 1rem;
 
-      .name {
-        font-size: 0.9rem;
+      .identity {
+        display: flex;
+        flex-direction: column;
+        align-items: end;
+        color: $gray-secondary-bg;
+        white-space: nowrap;
+
+        .name {
+          font-size: 0.9rem;
+        }
+        .role { font-size: 0.7rem; }
       }
-      .role { font-size: 0.7rem; }
+
+      i {
+        align-self: center;
+        justify-self: end;
+        cursor: pointer;
+        color: $gray-secondary-bg;
+        font-size: 2rem;
+      }
     }
 
     button {

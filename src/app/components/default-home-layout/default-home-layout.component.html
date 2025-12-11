@@ -5,9 +5,24 @@
     </a>
     <span class="page-name">{{ pageTitle }}</span>
     <section class="user-section">
-      <div class="identity">
-        <span class="name">{{ name }}</span>
-        <span class="role">{{ role }}</span>
+      <div class="user-data">
+        <div class="identity">
+          <span class="name">{{ name }}</span>
+          <span class="role">{{ role }}</span>
+        </div>
+        <div>
+          <i class="material-symbols-outlined" (click)="openUpdateUserModal()">
+            person_edit
+          </i>
+          <app-user-modal
+            [isOpen]="isModalOpen"
+            [user]="selectedUser"
+            [isUserProfile]="true"
+            (close)="onCloseModal()"
+            (save)="onSaveUser($event)"
+            (changePassword)="$event"
+          ></app-user-modal>
+        </div>
       </div>
       <div>
         <button (click)="logout()">Sair</button>

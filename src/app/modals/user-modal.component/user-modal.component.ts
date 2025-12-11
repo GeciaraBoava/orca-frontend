@@ -53,6 +53,12 @@ export class UserModalComponent implements OnInit {
           phoneNumber: this.applyPhoneMask(this.user.phoneNumber)
         };
         this.userForm.patchValue(userWithMaskedPhone);
+
+        this.userForm.patchValue({
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        });
       }
     }
   }

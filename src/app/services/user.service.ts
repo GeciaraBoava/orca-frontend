@@ -55,6 +55,10 @@ export class UserService {
     return this.httpClient.get<UserResponseDTO[]>(this.apiUrl, { headers: this.getAuthHeaders() });
   }
 
+  find(username: string): Observable<UserResponseDTO> {
+    return this.httpClient.get<UserResponseDTO>(`${this.apiUrl}/username/${username}`, { headers: this.getAuthHeaders() });
+  }
+
   save(dto: UserRequestDTO): Observable<UserResponseDTO> {
     return this.httpClient.post<UserResponseDTO>(this.apiUrl, dto, { headers: this.getAuthHeaders() })
   }

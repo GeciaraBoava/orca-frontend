@@ -2,7 +2,6 @@
   <div class="modal-overlay" (click)="onClose()">
     <div class="modal-container" (click)="$event.stopPropagation()">
 
-      <!-- Header -->
       <div class="modal-header">
         <h2>{{ isEditMode ? 'Editar Usuário' : 'Cadastrar Novo Usuário' }}</h2>
         <button class="close-btn" (click)="onClose()">
@@ -10,7 +9,6 @@
         </button>
       </div>
 
-      <!-- Body -->
       <div class="modal-body">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
@@ -49,7 +47,7 @@
           @if (isEditMode) {
             <div class="password-section">
               @if (isUserProfile) {
-                <div class="form-row">
+                <div class="form-row password">
                   <div class="form-group full-width">
                     <label for="currentPassword">Senha Atual *</label>
                     <input
@@ -57,6 +55,7 @@
                       type="password"
                       formControlName="currentPassword"
                       placeholder="Digite a senha atual"
+                      autocomplete="new-password"
                       [class.invalid]="hasCurrentPasswordError()"
                     />
                     @if (hasCurrentPasswordError()) {
@@ -74,6 +73,7 @@
                     type="password"
                     formControlName="newPassword"
                     placeholder="Digite a nova senha"
+                    autocomplete="new-password"
                     [class.invalid]="isFieldInvalid('newPassword')"
                   />
                   @if (isFieldInvalid('newPassword')) {
@@ -88,6 +88,7 @@
                     type="password"
                     formControlName="confirmPassword"
                     placeholder="Confirme a nova senha"
+                    autocomplete="new-password"
                     [class.invalid]="hasPasswordMismatch()"
                   />
                   @if (hasPasswordMismatch()) {

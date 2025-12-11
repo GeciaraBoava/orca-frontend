@@ -71,7 +71,7 @@
   form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 16px; // espaçamento entre linhas
   }
 }
 
@@ -97,11 +97,8 @@
   label {
     font-size: 14px;
     font-weight: 400;
-    color: $secondary-color;
-
-    &:not(.checkbox-label) {
-      margin-bottom: 2px;
-    }
+    color: $primary-color;
+    margin-bottom: 2px;
   }
 
   input[type="text"],
@@ -139,12 +136,25 @@
     background-color: white;
   }
 
-
   .error-message {
     font-size: 12px;
     color: #f44336;
     margin-top: 2px;
   }
+}
+
+.password-section {
+  display: flex;
+  flex-direction: column;
+  gap: 22px; // corrige o espaço entre "senha atual" e "nova senha"
+}
+
+.password-section .form-row {
+  gap: 16px;
+}
+
+.password-section .form-group {
+  gap: 8px;
 }
 
 .modal-footer {
@@ -199,12 +209,8 @@
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes slideUp {
