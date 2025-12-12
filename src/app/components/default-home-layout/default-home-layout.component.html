@@ -14,14 +14,15 @@
           <i class="material-symbols-outlined" (click)="openUpdateUserModal()">
             person_edit
           </i>
-          <app-user-modal
+          <app-input-modal
             [isOpen]="isModalOpen"
             [user]="selectedUser"
             [isUserProfile]="true"
+            [entityType]="'usuario'"
             (close)="onCloseModal()"
             (save)="onSaveUser($event)"
             (changePassword)="$event"
-          ></app-user-modal>
+          ></app-input-modal>
         </div>
       </div>
       <div>
@@ -63,10 +64,12 @@
         <span class="label">Clientes</span>
       </a>
 
-      <a routerLink="/users" routerLinkActive="active">
-        <span class="material-icons">manage_accounts</span>
-        <span class="label">Usuários</span>
-      </a>
+      @if(role === "Administrador") {
+        <a routerLink="/users" routerLinkActive="active">
+          <span class="material-icons">manage_accounts</span>
+          <span class="label">Usuários</span>
+        </a>
+      }
 
       <a routerLink="/config" routerLinkActive="active">
         <span class="material-icons">settings</span>

@@ -1,0 +1,210 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="onClose()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+        <h2>{{ isEditMode ? 'Editar' : 'Cadastrar Novo' }} {{ entityType | titlecase }}</h2>
+        <button class="close-btn" (click)="onClose()">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="name">Nome *</label>
+              <input id="name" type="text" formControlName="name"
+                     placeholder="Digite o nome"
+                     [class.invalid]="isFieldInvalid('name')" />
+
+              @if (isFieldInvalid('name')) {
+                <span class="error-message">{{ getErrorMessage('name') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">E-mail *</label>
+              <input id="email" type="email" formControlName="email"
+                     placeholder="exemplo@email.com"
+                     [class.invalid]="isFieldInvalid('email')" />
+
+              @if (isFieldInvalid('email')) {
+                <span class="error-message">{{ getErrorMessage('email') }}</span>
+              }
+            </div>
+
+            <div class="form-group">
+              <label for="cnpjCpf">CNPJ / CPF *</label>
+              <input id="cnpjCpf" type="text" formControlName="cnpjCpf"
+                     placeholder="Insira o número"
+                     (input)="onCnpjCpfInput($event)"
+                     [class.invalid]="isFieldInvalid('cnpjCpf')" />
+
+              @if (isFieldInvalid('cnpjCpf')) {
+                <span class="error-message">{{ getErrorMessage('cnpjCpf') }}</span>
+              }
+            </div>
+          </div>
+
+          @if (isEditMode && entityType === 'usuario') {
+            <div class="password-section">
+
+              @if (isUserProfile) {
+                <div class="form-row">
+                  <div class="form-group full-width">
+                    <label for="currentPassword">Senha Atual *</label>
+
+                    <input id="currentPassword" type="password"
+                           formControlName="currentPassword"
+                           placeholder="Digite a senha atual"
+                           autocomplete="new-password"
+                           [class.invalid]="hasCurrentPasswordError()" />
+
+                    @if (hasCurrentPasswordError()) {
+                      <span class="error-message">Senha atual obrigatória para alterar senha</span>
+                    }
+                  </div>
+                </div>
+              }
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="newPassword">Nova Senha</label>
+                  <input id="newPassword" type="password"
+                         formControlName="newPassword"
+                         placeholder="Digite a nova senha"
+                         autocomplete="new-password"
+                         [class.invalid]="isFieldInvalid('newPassword')" />
+                </div>
+
+                <div class="form-group">
+                  <label for="confirmPassword">Confirmar Nova Senha</label>
+                  <input id="confirmPassword" type="password"
+                         formControlName="confirmPassword"
+                         placeholder="Confirme a nova senha"
+                         autocomplete="new-password"
+                         [class.invalid]="hasPasswordMismatch()" />
+
+                  @if (hasPasswordMismatch()) {
+                    <span class="error-message">As senhas não coincidem</span>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+
+          <div class="form-row">
+
+            @if (entityType === 'usuario') {
+              <div class="form-group">
+                <label for="role">Permissão *</label>
+
+                <select id="role" formControlName="role"
+                        [class.invalid]="isFieldInvalid('role')">
+
+                  @for (role of roles; track role) {
+                    <option [value]="role">{{ role }}</option>
+                  }
+                </select>
+
+                @if (isFieldInvalid('role')) {
+                  <span class="error-message">{{ getErrorMessage('role') }}</span>
+                }
+              </div>
+            }
+
+            <div class="form-group">
+              <label for="phone">Telefone *</label>
+
+              <input id="phone" type="text"
+                     formControlName="phoneNumber"
+                     (input)="onPhoneInput($event)"
+                     placeholder="(00) 00000-0000"
+                     [class.invalid]="isFieldInvalid('phoneNumber')" />
+
+              @if (isFieldInvalid('phoneNumber')) {
+                <span class="error-message">{{ getErrorMessage('phoneNumber') }}</span>
+              }
+            </div>
+
+            @if (entityType === 'cliente' || entityType === 'fornecedor') {
+              <div class="form-group">
+                <label for="contactName">Nome do Contato *</label>
+
+                <input id="contactName" type="text"
+                       formControlName="contactName"
+                       placeholder="Digite o nome do contato"
+                       [class.invalid]="isFieldInvalid('contactName')" />
+              </div>
+
+              @if (entityType === 'cliente') {
+                <div class="form-group">
+                  <label for="customerType">Tipo *</label>
+
+                  <select id="customerType" formControlName="customerType"
+                          [class.invalid]="isFieldInvalid('customerType')">
+
+                    @for (type of types; track type) {
+                      <option [value]="type">{{ type }}</option>
+                    }
+                  </select>
+                </div>
+              }
+            }
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="address">Endereço *</label>
+
+              <input id="address" type="text"
+                     formControlName="address"
+                     placeholder="Rua, número, complemento"
+                     [class.invalid]="isFieldInvalid('address')" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">Cidade *</label>
+
+              <input id="city" type="text"
+                     formControlName="city"
+                     placeholder="Cidade"
+                     [class.invalid]="isFieldInvalid('city')" />
+            </div>
+
+            <div class="form-group">
+              <label for="uf">UF *</label>
+
+              <select id="uf" formControlName="uf"
+                      [class.invalid]="isFieldInvalid('uf')">
+
+                @for (uf of ufs; track uf) {
+                  <option [value]="uf">{{ uf }}</option>
+                }
+              </select>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="onClose()">Cancelar</button>
+
+        <button type="button" class="btn-save" (click)="onSubmit()"
+                [disabled]="!canSubmit()">
+
+          <i class="material-icons">save</i>
+          {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

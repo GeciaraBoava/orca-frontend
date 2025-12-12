@@ -6,6 +6,7 @@ export interface UserResponseDTO {
   id: number;
   role: string;
   name: string;
+  cnpjCpf: string;
   phoneNumber: string;
   email: string;
   address: string;
@@ -19,6 +20,7 @@ export interface UserResponseDTO {
 export interface UserRequestDTO {
   role: string;
   name: string;
+  cnpjCpf: string;
   phoneNumber: string;
   email: string;
   address: string;
@@ -30,6 +32,7 @@ export interface UserUpdateRequestDTO {
   password: string;
   role: string;
   name: string;
+  cnpjCpf: string;
   phoneNumber: string;
   email: string;
   address: string;

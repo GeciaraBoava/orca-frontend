@@ -2,14 +2,15 @@ import {Component, HostListener, Input, input} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {UserResponseDTO, UserService, UserUpdateRequestDTO} from '../../services/user.service';
 import {ToastrService} from 'ngx-toastr';
-import {UserModalComponent} from '../../modals/user-modal.component/user-modal.component';
+import {InputModalComponent} from '../../modals/input-modal.component/input-modal.component';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-default-home-layout',
   imports: [
     RouterLink,
     RouterLinkActive,
-    UserModalComponent
+    InputModalComponent
   ],
   templateUrl: './default-home-layout.component.html',
   styleUrl: './default-home-layout.component.scss',
@@ -26,16 +27,14 @@ export class DefaultHomeLayoutComponent {
   currentYear = new Date().getFullYear();
 
   constructor(
+    private authService: AuthService,
     private router: Router,
     private toastService: ToastrService,
     private userService: UserService
     ) {}
 
   logout(): void {
-    localStorage.removeItem('auth-token');
-    localStorage.removeItem('name');
-    localStorage.removeItem('role');
-    localStorage.removeItem('username');
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 
@@ -96,6 +95,7 @@ export class DefaultHomeLayoutComponent {
       password: '',
       role: userData.role,
       name: userData.name,
+      cnpjCpf: userData.cnpjCpf,
       phoneNumber: userData.phoneNumber,
       email: userData.email,
       address: userData.address,

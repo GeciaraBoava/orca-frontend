@@ -3,7 +3,7 @@ import {DefaultLoginLayoutComponent} from '../../components/default-login-layout
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {PrimaryInputComponent} from '../../components/primary-input/primary-input.component';
 import {Router} from '@angular/router';
-import {LoginService} from '../../services/login.service';
+import {AuthService} from '../../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 
 interface LoginForm {
@@ -19,7 +19,7 @@ interface LoginForm {
     PrimaryInputComponent
   ],
   providers: [
-    LoginService
+    AuthService
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
@@ -29,7 +29,7 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
-    private loginService: LoginService,
+    private loginService: AuthService,
     private toastService: ToastrService
   ) {
     this.loginForm = new FormGroup({

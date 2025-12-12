@@ -3,12 +3,12 @@ import {DefaultHomeLayoutComponent} from '../../components/default-home-layout/d
 import {ColumnConfig, DefaultTableLayoutComponent} from '../../components/default-table-layout/default-table-layout.component';
 import {ToastrService} from 'ngx-toastr';
 import {UserRequestDTO, UserResponseDTO, UserService, UserUpdateRequestDTO} from '../../services/user.service';
-import {UserModalComponent} from '../../modals/user-modal.component/user-modal.component';
+import {InputModalComponent} from '../../modals/input-modal.component/input-modal.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, UserModalComponent],
+  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent],
   templateUrl: './users-page.component.html',
   styleUrl: './users-page.component.scss',
 })
@@ -48,6 +48,7 @@ export class UsersPageComponent implements OnInit {
     { key: 'id', label: 'ID', searchable: true, filterable: false },
     { key: 'role', label: 'Permissão', searchable: true, filterable: false },
     { key: 'name', label: 'Nome', searchable: true, filterable: false },
+    { key: 'cnpjCpf', label: 'CNPJ / CPF', searchable: true, filterable: false },
     { key: 'phoneNumber', label: 'Celular', searchable: true, filterable: false },
     { key: 'email', label: 'E-mail', searchable: true, filterable: false },
     { key: 'address', label: 'Endereço', searchable: true, filterable: false },
@@ -95,6 +96,7 @@ export class UsersPageComponent implements OnInit {
     const userRequest: UserRequestDTO = {
       role: userData.role,
       name: userData.name,
+      cnpjCpf: userData.cnpjCpf,
       phoneNumber: userData.phoneNumber,
       email: userData.email,
       address: userData.address,
@@ -125,6 +127,7 @@ export class UsersPageComponent implements OnInit {
       password: '',
       role: userData.role,
       name: userData.name,
+      cnpjCpf: userData.cnpjCpf,
       phoneNumber: userData.phoneNumber,
       email: userData.email,
       address: userData.address,
@@ -165,6 +168,7 @@ export class UsersPageComponent implements OnInit {
       password: '',
       role: user.role,
       name: user.name,
+      cnpjCpf: user.cnpjCpf,
       phoneNumber: user.phoneNumber,
       email: user.email,
       address: user.address,
@@ -189,6 +193,23 @@ export class UsersPageComponent implements OnInit {
         console.error('❌ Erro ao alterar status do usuário:', error);
         this.isLoading = false;
         this.toastService.error('Erro ao alterar status. Tente novamente.');
+      }
+    });
+  }
+
+  onChangePassword(data: { userId: number; currentPassword?: string; newPassword: string }) {
+    this.isLoading = true;
+
+    this.userService.updatePassword(data.userId, data.newPassword).subscribe({
+      next: () => {
+        console.log('✅ Senha alterada com sucesso');
+        this.isLoading = false;
+        this.toastService.success('Senha alterada com sucesso!');
+      },
+      error: (error) => {
+        console.error('❌ Erro ao alterar senha:', error);
+        this.isLoading = false;
+        this.toastService.error('Erro ao alterar senha. Tente novamente.');
       }
     });
   }

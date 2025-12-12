@@ -1,46 +1,45 @@
-<app-default-home-layout pageTitle="Gestão de Usuários">
+<app-default-home-layout pageTitle="Gestão de Clientes">
   <main>
     <section class="cards">
       <div class="card">
         <div class="card-label">
-          <span class="label">Total de Usuários Cadastrados</span>
-          <span class="quantity">{{ totalUsers }}</span>
+          <span class="label">Total de Clientes Cadastrados</span>
+          <span class="quantity">{{ totalCustomers }}</span>
         </div>
         <span class="layers material-icons">layers</span>
       </div>
       <div class="card">
         <div class="card-label">
-          <span class="label">Total de Usuários Ativos</span>
-          <span class="quantity">{{ activeUsers }}</span>
+          <span class="label">Total de Clientes Ativos</span>
+          <span class="quantity">{{ activeCustomers }}</span>
         </div>
         <span class="check material-icons">check_box</span>
       </div>
       <div class="card">
         <div class="card-label">
-          <span class="label">Total de Usuários Inativos</span>
-          <span class="quantity">{{ inactiveUsers }}</span>
+          <span class="label">Total de Clientes Inativos</span>
+          <span class="quantity">{{ inactiveCustomers }}</span>
         </div>
         <span class="disabled material-icons-round">disabled_by_default</span>
       </div>
     </section>
     <app-default-table-layout
-      [data]="users"
-      [columns]="userColumns"
+      [data]="customers"
+      [columns]="customersColumns"
       [pageSize]="10"
       [showLoads]="false"
-      (editClicked)="openUpdateUserModal($event)"
-      (createClicked)="openCreateUserModal()"
-      (toggleStatus)="onToggleUserStatus($event)"
+      (editClicked)="openUpdateCustomerModal($event)"
+      (createClicked)="openCreateCustomerModal()"
+      (toggleStatus)="onToggleCustomerStatus($event)"
     >
     </app-default-table-layout>
     <app-input-modal
       [isOpen]="isModalOpen"
-      [user]="selectedUser"
+      [customer]="selectedCustomer"
       [isUserProfile]="false"
-      [entityType]="'usuario'"
+      [entityType]="'cliente'"
       (close)="onCloseModal()"
-      (save)="onSaveUser($event)"
-      (changePassword)="onChangePassword($event)"
+      (save)="onSaveCustomer($event)"
     ></app-input-modal>
   </main>
 </app-default-home-layout>
