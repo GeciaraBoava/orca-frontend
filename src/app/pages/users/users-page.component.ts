@@ -4,11 +4,12 @@ import {ColumnConfig, DefaultTableLayoutComponent} from '../../components/defaul
 import {ToastrService} from 'ngx-toastr';
 import {UserRequestDTO, UserResponseDTO, UserService, UserUpdateRequestDTO} from '../../services/user.service';
 import {InputModalComponent} from '../../modals/input-modal.component/input-modal.component';
+import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent],
+  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent, ConfirmModalComponent],
   templateUrl: './users-page.component.html',
   styleUrl: './users-page.component.scss',
 })
@@ -216,6 +217,11 @@ export class UsersPageComponent implements OnInit {
 
   onDeleteUser(user: UserResponseDTO) {
     this.isLoading = true;
+
+    const confirmed = window.confirm('Tem certeza que deseja excluir este usuário?');
+
+    if (!confirmed) return;
+
     this.userService.delete(user.id).subscribe({
       next: () => {
         console.log('✅ Usuário deletado com sucesso');

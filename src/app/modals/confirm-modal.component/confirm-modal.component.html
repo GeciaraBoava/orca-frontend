@@ -1,0 +1,12 @@
+<div class="modal-overlay" (click)="cancel()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <h3 class="modal-title">Confirmar exclusão</h3>
+    <p class="modal-text">Tem certeza que deseja excluir este usuário?</p>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cancel()">Cancelar</button>
+      <button class="btn-confirm" (click)="confirm()">Excluir</button>
+    </div>
+  </div>
+</div>
+

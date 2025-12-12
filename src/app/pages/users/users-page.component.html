@@ -43,5 +43,10 @@
       (save)="onSaveUser($event)"
       (changePassword)="onChangePassword($event)"
     ></app-input-modal>
+    <app-confirm-modal
+      [isOpen]="isModalOpen"
+      (confirmAction)="onConfirmDelete()"
+      (cancelAction)="onCancelDelete()">
+    </app-confirm-modal>
   </main>
 </app-default-home-layout>
