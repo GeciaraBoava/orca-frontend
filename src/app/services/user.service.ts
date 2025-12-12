@@ -66,6 +66,10 @@ export class UserService {
     return this.httpClient.post<UserResponseDTO>(this.apiUrl, dto, { headers: this.getAuthHeaders() })
   }
 
+  delete(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() })
+  }
+
   update(id: number, dto: UserUpdateRequestDTO): Observable<UserResponseDTO> {
     return this.httpClient.put<UserResponseDTO>(`${this.apiUrl}/${id}`, dto, { headers: this.getAuthHeaders() })
   }

@@ -57,7 +57,7 @@ export class UsersPageComponent implements OnInit {
     { key: 'active', label: 'Ativo', searchable: true, filterable: false, type: 'toggle' },
     { key: 'registeredAt', label: 'Data de registro', searchable: true, filterable: false },
     { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false },
-    { key: 'actions', label: 'Editar', type: 'actions' },
+    { key: 'actions', label: 'Ações', type: 'actions' },
   ];
 
   isModalOpen = false;
@@ -213,4 +213,21 @@ export class UsersPageComponent implements OnInit {
       }
     });
   }
+
+  onDeleteUser(user: UserResponseDTO) {
+    this.isLoading = true;
+    this.userService.delete(user.id).subscribe({
+      next: () => {
+        console.log('✅ Usuário deletado com sucesso');
+        this.isLoading = false;
+        this.toastService.success('Usuário deletado com sucesso!');
+      },
+      error: (error) => {
+        console.error('❌ Erro ao deletar usuário:', error);
+        this.isLoading = false;
+        this.toastService.error('Erro ao deletar usuário. Tente novamente.');
+      }
+    });
+  }
+
 }

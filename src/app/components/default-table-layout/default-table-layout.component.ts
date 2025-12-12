@@ -22,6 +22,7 @@ export class DefaultTableLayoutComponent<T extends object> {
   @Input() showLoads: boolean = true;
 
   @Output() editClicked = new EventEmitter<T>();
+  @Output() deleteClicked = new EventEmitter<T>();
   @Output() createClicked = new EventEmitter<void>();
   @Output() toggleStatus = new EventEmitter<T>();
 
@@ -42,6 +43,10 @@ export class DefaultTableLayoutComponent<T extends object> {
 
   onEdit(item: any) {
     this.editClicked.emit(item);
+  }
+
+  onDelete(item: any) {
+    this.deleteClicked.emit(item);
   }
 
   onCreate() {

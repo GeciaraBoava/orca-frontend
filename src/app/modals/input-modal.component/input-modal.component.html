@@ -195,11 +195,11 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn-cancel" (click)="onClose()">Cancelar</button>
-
-        <button type="button" class="btn-save" (click)="onSubmit()"
-                [disabled]="!canSubmit()">
-
+        <button type="button" class="btn-cancel" (click)="onClose()">
+          <i class="material-icons">delete</i>
+          Cancelar
+        </button>
+        <button type="button" class="btn-save" (click)="onSubmit()" [disabled]="!canSubmit()">
           <i class="material-icons">save</i>
           {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar' }}
         </button>

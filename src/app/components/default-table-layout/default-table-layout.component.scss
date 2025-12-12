@@ -50,9 +50,9 @@
       padding: 0.5rem;
       cursor: pointer;
       color: $gray-secondary-bg;
-      background: $details1-color;
+      background: $tertiary-color;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      border: 2px solid $details1-color;
+      border: 2px solid $tertiary-color;
       border-radius: 4px;
       font-size: 1rem;
 
@@ -93,8 +93,8 @@ table {
       vertical-align: middle;
       border-right: 1px solid $gray-secondary-bg;
 
-      .icon-true { color: $details1-color; }
-      .icon-false { color: $details2-color; }
+      .icon-true { color: $tertiary-color; }
+      .icon-false { color: $details1-color; }
     }
 
     td:first-child {
@@ -117,61 +117,50 @@ table {
       }
 
       .material-icons {
-        color: $details1-color;
+        color: $tertiary-color;
         font-size: 20px;
       }
     }
   }
 
-  .toggle-checkbox {
+  .mini-toggle {
     position: relative;
     display: inline-block;
-    width: 48px;
-    height: 24px;
+    width: 28px;
+    height: 16px;
     cursor: pointer;
 
-    input[type="checkbox"] {
+    input {
       opacity: 0;
       width: 0;
       height: 0;
 
-      &:checked + .toggle-slider {
-        background-color: $details1-color;
+      &:checked + .mini-slider {
+        background-color: $tertiary-color;
 
-        &:before {
-          transform: translateX(24px);
+        &::before {
+          transform: translateX(12px);
         }
-      }
-
-      &:focus + .toggle-slider {
-        box-shadow: 0 0 1px $details1-color;
       }
     }
 
-    .toggle-slider {
+    .mini-slider {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       background-color: #ccc;
-      border-radius: 24px;
-      transition: background-color 0.3s;
+      border-radius: 16px;
+      transition: 0.2s;
 
-      &:before {
+      &::before {
         content: "";
         position: absolute;
-        height: 18px;
-        width: 18px;
-        left: 3px;
-        bottom: 3px;
+        height: 12px;
+        width: 12px;
+        left: 2px;
+        bottom: 2px;
         background-color: white;
         border-radius: 50%;
-        transition: transform 0.3s;
-      }
-
-      &:hover {
-        opacity: 0.9;
+        transition: 0.2s;
       }
     }
   }

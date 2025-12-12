@@ -35,7 +35,7 @@ main {
     flex: 1;
 
     strong {
-      color: $details2-color;
+      color: $details1-color;
       font-size: clamp(1.8rem, 5vw, 4rem);
       text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
     }

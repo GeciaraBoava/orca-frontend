@@ -63,7 +63,7 @@ export class CustomersPageComponent implements OnInit {
     { key: 'customerType', label: 'Tipo', searchable: true, filterable: false },
     { key: 'registeredAt', label: 'Data de registro', searchable: true, filterable: false },
     { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false },
-    { key: 'actions', label: 'Editar', type: 'actions' },
+    { key: 'actions', label: 'Ações', type: 'actions' },
   ];
 
   isModalOpen = false;

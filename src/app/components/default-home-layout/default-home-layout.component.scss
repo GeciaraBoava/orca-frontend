@@ -41,7 +41,6 @@ header {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0 2rem;
     margin-right: 0.5rem;
 
     .user-data {
@@ -72,9 +71,9 @@ header {
 
     button {
       cursor: pointer;
-      background: $details2-color;
-      border: 1px solid $details2-color;
-      padding: 15% 60%;
+      background: $gray-secondary-bg;
+      border: 1px solid $gray-secondary-bg;
+      padding: 15% 15%;
       border-radius: 4px;
       color: $primary-color;
       font-size: 1rem;
@@ -126,7 +125,7 @@ header {
         transition: opacity 0.2s ease;
       }
 
-      &:hover { color: $details1-color; }
+      &:hover { color: $tertiary-color; }
     }
 
     a.active {

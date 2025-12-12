@@ -61,7 +61,7 @@ export class SuppliersPageComponent implements OnInit {
     { key: 'active', label: 'Ativo', searchable: true, filterable: false, type: 'toggle' },
     { key: 'registeredAt', label: 'Data de registro', searchable: true, filterable: false },
     { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false },
-    { key: 'actions', label: 'Editar', type: 'actions' },
+    { key: 'actions', label: 'Ações', type: 'actions' },
   ];
 
   isModalOpen = false;

@@ -33,12 +33,13 @@
   align-items: center;
   padding: 18px 24px;
   border-bottom: 1px solid lightgray;
+  background: $secondary-color;
 
   h2 {
     margin: 0;
     font-size: 20px;
     font-weight: 600;
-    color: $primary-color;
+    color: $gray-secondary-bg;
   }
 
   .close-btn {
@@ -57,7 +58,7 @@
     }
 
     i {
-      color: gray;
+      color: $gray-secondary-bg;
       font-size: 24px;
     }
   }
@@ -71,7 +72,7 @@
   form {
     display: flex;
     flex-direction: column;
-    gap: 16px; // espaçamento entre linhas
+    gap: 16px;
   }
 }
 
@@ -159,7 +160,7 @@
 
 .modal-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   gap: 12px;
   padding: 16px 24px;
   border-top: 1px solid lightgray;
@@ -175,7 +176,9 @@
     transition: all 0.2s;
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    gap: 12px;
+    width: 200px;
 
     i {
       font-size: 18px;
@@ -184,17 +187,16 @@
 
   .btn-cancel {
     background-color: $details2-color;
-    color: $secondary-color;
-    border: 1px solid $details2-color;
+    color: $gray-secondary-bg;
 
     &:hover {
-      background-color: $gray-secondary-bg;
+      background-color: $details1-color;
     }
   }
 
   .btn-save {
-    background-color: $details1-color;
-    color: white;
+    background-color: $tertiary-color;
+    color: $gray-secondary-bg;
 
     &:hover:not(:disabled) {
       background-color: $secondary-color;

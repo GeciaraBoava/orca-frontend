@@ -48,16 +48,19 @@
             <td class="cell">
               @if (col.type === 'actions') {
                 <button class="action-btn" (click)="onEdit(item)">
-                  <i class="material-icons ">edit</i>
+                  <i class="material-icons edit">edit</i>
+                </button>
+                <button class="action-btn" (click)="onDelete(item)">
+                  <i class="material-icons delete">delete</i>
                 </button>
               } @else if (col.type === 'toggle') {
-                <label class="toggle-checkbox">
+                <label class="mini-toggle">
                   <input
                     type="checkbox"
                     [checked]="getValue(item, col.key)"
                     (change)="onToggleStatus(item)"
                   />
-                  <span class="toggle-slider"></span>
+                  <span class="mini-slider"></span>
                 </label>
               } @else if (col.type === 'boolean') {
                 @if (getValue(item, col.key)) {
