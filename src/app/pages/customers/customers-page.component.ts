@@ -174,40 +174,9 @@ export class CustomersPageComponent implements OnInit {
     if (!customer.id) return;
 
     this.isLoading = true;
+    this.updateCustomer(customer.id, {...customer, active: !customer.active});
 
-    const updatedStatus = !customer.active;
-
-    const customerUpdateRequest: CustomerUpdateRequestDTO = {
-      name: customer.name,
-      cnpjCpf: customer.cnpjCpf,
-      phoneNumber: customer.phoneNumber,
-      contactName: customer.contactName,
-      email: customer.email,
-      address: customer.address,
-      city: customer.city,
-      uf: customer.uf,
-      customerType: customer.customerType,
-      active: updatedStatus
-    };
-
-    this.customerService.update(customer.id, customerUpdateRequest).subscribe({
-      next: (response) => {
-        console.log(`✅ Status do cadastro do cliente ${updatedStatus ? 'ativado' : 'desativado'} com sucesso:`, response);
-
-        const index = this.customers.findIndex(u => u.id === customer.id);
-        if (index !== -1) {
-          this.customers[index] = response;
-        }
-
-        this.isLoading = false;
-        this.toastService.success(`cadastro de cliente ${updatedStatus ? 'ativado' : 'desativado'} com sucesso!`);
-      },
-      error: (error) => {
-        console.error('❌ Erro ao alterar status do cadastro do cliente:', error);
-        this.isLoading = false;
-        this.toastService.error('Erro ao alterar status. Tente novamente.');
-      }
-    });
+    this.loadCustomers();
   }
 
   //DELETE
@@ -236,6 +205,8 @@ export class CustomersPageComponent implements OnInit {
         this.toastService.error('Erro ao deletar cadastro de Fornecedor. Tente novamente.');
       }
     });
+
+    this.loadCustomers();
   }
 
   onCancelDelete() {

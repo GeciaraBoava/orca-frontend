@@ -98,6 +98,8 @@ export class SuppliersPageComponent implements OnInit {
     } else {
       this.createSupplier(supplierData);
     }
+
+    this.loadSuppliers();
   }
 
   private createSupplier(supplierData: any) {
@@ -164,45 +166,17 @@ export class SuppliersPageComponent implements OnInit {
         this.toastService.error('Erro ao atualizar cadastro de cliente. Tente novamente.');
       }
     });
+
+    this.loadSuppliers();
   }
 
   onToggleSupplierStatus(supplier: SupplierResponseDTO) {
     if (!supplier.id) return;
 
     this.isLoading = true;
+    this.updateSupplier(supplier.id, {...supplier, active: !supplier.active});
 
-    const updatedStatus = !supplier.active;
-
-    const supplierUpdateRequest: SupplierUpdateDTO = {
-      name: supplier.name,
-      cnpjCpf: supplier.cnpjCpf,
-      phoneNumber: supplier.phoneNumber,
-      contactName: supplier.contactName,
-      email: supplier.email,
-      address: supplier.address,
-      city: supplier.city,
-      uf: supplier.uf,
-      active: updatedStatus
-    };
-
-    this.supplierService.update(supplier.id, supplierUpdateRequest).subscribe({
-      next: (response) => {
-        console.log(`✅ Status do cadastro do cliente ${updatedStatus ? 'ativado' : 'desativado'} com sucesso:`, response);
-
-        const index = this.suppliers.findIndex(u => u.id === supplier.id);
-        if (index !== -1) {
-          this.suppliers[index] = response;
-        }
-
-        this.isLoading = false;
-        this.toastService.success(`cadastro de cliente ${updatedStatus ? 'ativado' : 'desativado'} com sucesso!`);
-      },
-      error: (error) => {
-        console.error('❌ Erro ao alterar status do cadastro do cliente:', error);
-        this.isLoading = false;
-        this.toastService.error('Erro ao alterar status. Tente novamente.');
-      }
-    });
+    this.loadSuppliers();
   }
 
   //DELETE
@@ -231,6 +205,8 @@ export class SuppliersPageComponent implements OnInit {
         this.toastService.error('Erro ao deletar cadastro de Fornecedor. Tente novamente.');
       }
     });
+
+    this.loadSuppliers();
   }
 
   onCancelDelete() {

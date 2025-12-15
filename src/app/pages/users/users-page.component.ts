@@ -95,6 +95,8 @@ export class UsersPageComponent implements OnInit {
     } else {
       this.createUser(userData);
     }
+
+    this.loadUsers();
   }
 
   private createUser(userData: any) {
@@ -154,6 +156,8 @@ export class UsersPageComponent implements OnInit {
         this.toastService.error('Erro ao atualizar usuário. Tente novamente.');
       }
     });
+
+    this.loadUsers();
   }
 
   onToggleUserStatus(user: UserResponseDTO) {
@@ -161,6 +165,8 @@ export class UsersPageComponent implements OnInit {
 
     this.isLoading = true;
     this.updateUser(user.id, { ...user, active: !user.active });
+
+    this.loadUsers();
   }
 
   onChangePassword(data: { userId: number; currentPassword?: string; newPassword: string }) {
@@ -184,6 +190,7 @@ export class UsersPageComponent implements OnInit {
   onDeleteUser(user: UserResponseDTO) {
     this.selectedUser = user;
     this.isModalConfirmOpen = true;
+    this.loadUsers();
   }
 
   onConfirmDelete() {
@@ -206,6 +213,8 @@ export class UsersPageComponent implements OnInit {
         this.toastService.error('Erro ao deletar usuário. Tente novamente.');
       }
     });
+
+    this.loadUsers();
   }
 
   onCancelDelete() {
