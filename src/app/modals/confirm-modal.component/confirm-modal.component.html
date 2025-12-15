@@ -1,12 +1,33 @@
-<div class="modal-overlay" (click)="cancel()">
-  <div class="modal-container" (click)="$event.stopPropagation()">
-    <h3 class="modal-title">Confirmar exclusão</h3>
-    <p class="modal-text">Tem certeza que deseja excluir este usuário?</p>
+@if (isOpen) {
+  <div class="modal-overlay" (click)="cancel()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
 
-    <div class="modal-actions">
-      <button class="btn-cancel" (click)="cancel()">Cancelar</button>
-      <button class="btn-confirm" (click)="confirm()">Excluir</button>
+      <!-- Ícone baseado no tipo -->
+      <div class="modal-icon" [class]="confirmType">
+        @if (confirmType === 'danger') {
+          <i class="material-icons">warning</i>
+        } @else if (confirmType === 'warning') {
+          <i class="material-icons">error_outline</i>
+        } @else {
+          <i class="material-icons">check_circle</i>
+        }
+      </div>
+
+      <!-- Título e Mensagem -->
+      <h2>{{ title }}</h2>
+      <p>{{ message }}</p>
+
+      <!-- Botões -->
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="cancel()">
+          {{ cancelText }}
+        </button>
+        <button class="btn-confirm" [class]="confirmType" (click)="confirm()">
+          {{ confirmText }}
+        </button>
+      </div>
+
     </div>
   </div>
-</div>
+}
 

@@ -31,15 +31,25 @@
       (editClicked)="openUpdateSupplierModal($event)"
       (createClicked)="openCreateSupplierModal()"
       (toggleStatus)="onToggleSupplierStatus($event)"
+      (deleteClicked)="onDeleteSupplier($event)"
     >
     </app-default-table-layout>
     <app-input-modal
       [isOpen]="isModalOpen"
       [supplier]="selectedSupplier"
-      [isUserProfile]="false"
       [entityType]="'fornecedor'"
       (close)="onCloseModal()"
       (save)="onSaveSupplier($event)"
     ></app-input-modal>
+    <app-confirm-modal
+      title="Confirmar Exclusão"
+      message="Tem certeza que deseja excluir este fornecedor?"
+      confirmText="Sim, Excluir"
+      cancelText="Cancelar"
+      confirmType="danger"
+      [isOpen]="isModalConfirmOpen"
+      (confirmAction)="onConfirmDelete()"
+      (cancelAction)="onCancelDelete()">
+    </app-confirm-modal>
   </main>
 </app-default-home-layout>

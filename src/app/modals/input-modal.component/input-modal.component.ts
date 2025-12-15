@@ -20,6 +20,7 @@ export class InputModalComponent implements OnInit, OnChanges {
   @Input() supplier: SupplierResponseDTO | null = null;
   @Input() isUserProfile = false;
   @Input() entityType!: 'cliente' | 'usuario' | 'fornecedor';
+  @Input() initialData: any;
 
   @Output() close = new EventEmitter<void>();
   @Output() save = new EventEmitter<UserResponseDTO>();
@@ -35,6 +36,10 @@ export class InputModalComponent implements OnInit, OnChanges {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
+    if (this.initialData) {
+      this.form.patchValue(this.initialData);
+    }
+
     this.initForm();
   }
 

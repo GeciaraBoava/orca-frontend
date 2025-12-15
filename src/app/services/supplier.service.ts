@@ -61,6 +61,10 @@ export class SupplierService {
     return this.httpClient.post<SupplierResponseDTO>(this.apiUrl, dto, { headers: this.getAuthHeaders() })
   }
 
+  delete(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() })
+  }
+
   update(id: number, dto: SupplierUpdateDTO): Observable<SupplierResponseDTO> {
     return this.httpClient.put<SupplierResponseDTO>(`${this.apiUrl}/${id}`, dto, { headers: this.getAuthHeaders() })
   }

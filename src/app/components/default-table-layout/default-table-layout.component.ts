@@ -12,9 +12,7 @@ export interface ColumnConfig<T extends object> {
 @Component({
   selector: 'app-default-table-layout',
   standalone: true,
-  imports: [
-    ConfirmModalComponent
-  ],
+  imports: [  ],
   templateUrl: './default-table-layout.component.html',
   styleUrl: './default-table-layout.component.scss',
 })
@@ -26,7 +24,6 @@ export class DefaultTableLayoutComponent<T extends object> {
 
   @Output() editClicked = new EventEmitter<T>();
   @Output() deleteClicked = new EventEmitter<T>();
-  @Output() confirmClicked = new EventEmitter<number>();
   @Output() createClicked = new EventEmitter<void>();
   @Output() toggleStatus = new EventEmitter<T>();
 
@@ -50,7 +47,7 @@ export class DefaultTableLayoutComponent<T extends object> {
   }
 
   onDelete(item: any) {
-    this.deleteClicked.emit(item.id);
+    this.deleteClicked.emit(item);
   }
 
   onCreate() {

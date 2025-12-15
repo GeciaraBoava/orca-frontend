@@ -39,12 +39,18 @@
       [user]="selectedUser"
       [isUserProfile]="false"
       [entityType]="'usuario'"
+      [initialData]="selectedUser || lastFormData"
       (close)="onCloseModal()"
       (save)="onSaveUser($event)"
       (changePassword)="onChangePassword($event)"
     ></app-input-modal>
     <app-confirm-modal
-      [isOpen]="isModalOpen"
+      title="Confirmar Exclusão"
+      message="Tem certeza que deseja excluir este usuário?"
+      confirmText="Sim, Excluir"
+      cancelText="Cancelar"
+      confirmType="danger"
+      [isOpen]="isModalConfirmOpen"
       (confirmAction)="onConfirmDelete()"
       (cancelAction)="onCancelDelete()">
     </app-confirm-modal>

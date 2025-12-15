@@ -64,6 +64,10 @@ export class CustomerService {
     return this.httpClient.post<CustomerResponseDTO>(this.apiUrl, dto, { headers: this.getAuthHeaders() })
   }
 
+  delete(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() })
+  }
+
   update(id: number, dto: CustomerUpdateRequestDTO): Observable<CustomerResponseDTO> {
     return this.httpClient.put<CustomerResponseDTO>(`${this.apiUrl}/${id}`, dto, { headers: this.getAuthHeaders() })
   }

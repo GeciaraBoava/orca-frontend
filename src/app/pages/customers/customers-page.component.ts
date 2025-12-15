@@ -9,11 +9,12 @@ import {
   CustomerUpdateRequestDTO
 } from '../../services/customer.service';
 import {InputModalComponent} from '../../modals/input-modal.component/input-modal.component';
+import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
 
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent],
+  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent, ConfirmModalComponent],
   templateUrl: './customers-page.component.html',
   styleUrl: './customers-page.component.scss',
 })
@@ -24,12 +25,21 @@ export class CustomersPageComponent implements OnInit {
   activeCustomers: number = 0;
   inactiveCustomers: number = 0;
 
+  isModalOpen = false;
+  isModalConfirmOpen = false;
+  selectedCustomer: CustomerResponseDTO | null = null;
+  isLoading = false;
+
   constructor(
     private toastService: ToastrService,
     private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
+    this.loadCustomers();
+  }
+
+  loadCustomers(): void {
     this.customerService.listAll().subscribe({
       next: (data) => {
         console.log('Cadastros de clientes carregados:', data);
@@ -65,10 +75,6 @@ export class CustomersPageComponent implements OnInit {
     { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false },
     { key: 'actions', label: 'Ações', type: 'actions' },
   ];
-
-  isModalOpen = false;
-  selectedCustomer: CustomerResponseDTO | null = null;
-  isLoading = false;
 
   openCreateCustomerModal() {
     this.selectedCustomer = null;
@@ -202,5 +208,43 @@ export class CustomersPageComponent implements OnInit {
         this.toastService.error('Erro ao alterar status. Tente novamente.');
       }
     });
+  }
+
+  //DELETE
+  onDeleteCustomer(customer: CustomerResponseDTO) {
+    this.selectedCustomer = customer;
+    this.isModalConfirmOpen = true;
+  }
+
+  onConfirmDelete() {
+    if (!this.selectedCustomer?.id) {return;}
+
+    this.isLoading = true;
+    this.isModalConfirmOpen = false;
+
+    this.customerService.delete(this.selectedCustomer.id).subscribe({
+      next: () => {
+        this.customers = this.customers.filter(u => u.id !== this.selectedCustomer?.id);
+        this.toastService.success('Cadastro de Fornecedor deletado com sucesso!');
+        this.selectedCustomer = null;
+        this.isLoading = false;
+        this.onCloseConfirmDelete();
+      },
+      error: () => {
+        this.isLoading = false;
+        this.selectedCustomer = null;
+        this.toastService.error('Erro ao deletar cadastro de Fornecedor. Tente novamente.');
+      }
+    });
+  }
+
+  onCancelDelete() {
+    this.isModalConfirmOpen = false;
+    this.selectedCustomer = null;
+  }
+
+  onCloseConfirmDelete() {
+    this.isModalConfirmOpen = false;
+    this.selectedCustomer = null;
   }
 }

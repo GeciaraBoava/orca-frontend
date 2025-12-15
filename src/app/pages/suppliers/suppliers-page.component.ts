@@ -8,11 +8,12 @@ import {
   SupplierUpdateDTO
 } from '../../services/supplier.service';
 import {InputModalComponent} from '../../modals/input-modal.component/input-modal.component';
+import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
 
 @Component({
   selector: 'app-suppliers',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent],
+  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent, ConfirmModalComponent],
   templateUrl: './suppliers-page.component.html',
   styleUrl: './suppliers-page.component.scss',
 })
@@ -23,12 +24,21 @@ export class SuppliersPageComponent implements OnInit {
   activeSuppliers: number = 0;
   inactiveSuppliers: number = 0;
 
+  isModalOpen = false;
+  isModalConfirmOpen = false;
+  selectedSupplier: SupplierResponseDTO | null = null;
+  isLoading = false;
+
   constructor(
     private toastService: ToastrService,
     private supplierService: SupplierService,
   ) {}
 
   ngOnInit(): void {
+    this.loadSuppliers();
+  }
+
+  loadSuppliers(): void {
     this.supplierService.listAll().subscribe({
       next: (data) => {
         console.log('Cadastros de clientes carregados:', data);
@@ -63,10 +73,6 @@ export class SuppliersPageComponent implements OnInit {
     { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false },
     { key: 'actions', label: 'Ações', type: 'actions' },
   ];
-
-  isModalOpen = false;
-  selectedSupplier: SupplierResponseDTO | null = null;
-  isLoading = false;
 
   openCreateSupplierModal() {
     this.selectedSupplier = null;
@@ -197,5 +203,43 @@ export class SuppliersPageComponent implements OnInit {
         this.toastService.error('Erro ao alterar status. Tente novamente.');
       }
     });
+  }
+
+  //DELETE
+  onDeleteSupplier(supplier: SupplierResponseDTO) {
+    this.selectedSupplier = supplier;
+    this.isModalConfirmOpen = true;
+  }
+
+  onConfirmDelete() {
+    if (!this.selectedSupplier?.id) {return;}
+
+    this.isLoading = true;
+    this.isModalConfirmOpen = false;
+
+    this.supplierService.delete(this.selectedSupplier.id).subscribe({
+      next: () => {
+        this.suppliers = this.suppliers.filter(u => u.id !== this.selectedSupplier?.id);
+        this.toastService.success('Cadastro de Fornecedor deletado com sucesso!');
+        this.selectedSupplier = null;
+        this.isLoading = false;
+        this.onCloseConfirmDelete();
+      },
+      error: () => {
+        this.isLoading = false;
+        this.selectedSupplier = null;
+        this.toastService.error('Erro ao deletar cadastro de Fornecedor. Tente novamente.');
+      }
+    });
+  }
+
+  onCancelDelete() {
+    this.isModalConfirmOpen = false;
+    this.selectedSupplier = null;
+  }
+
+  onCloseConfirmDelete() {
+    this.isModalConfirmOpen = false;
+    this.selectedSupplier = null;
   }
 }

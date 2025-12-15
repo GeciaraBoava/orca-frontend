@@ -20,12 +20,22 @@ export class UsersPageComponent implements OnInit {
   activeUsers: number = 0;
   inactiveUsers: number = 0;
 
+  isModalOpen = false;
+  isModalConfirmOpen = false;
+  selectedUser: UserResponseDTO | null = null;
+  isLoading = false;
+  lastFormData: any = null;
+
   constructor(
     private toastService: ToastrService,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  private loadUsers(): void {
     this.userService.listAll().subscribe({
       next: (data) => {
         console.log('Usuários carregados:', data);
@@ -61,29 +71,25 @@ export class UsersPageComponent implements OnInit {
     { key: 'actions', label: 'Ações', type: 'actions' },
   ];
 
-  isModalOpen = false;
-  selectedUser: UserResponseDTO | null = null;
-  isLoading = false;
-
+  //CRIAÇÃO / EDIÇÃO
   openCreateUserModal() {
     this.selectedUser = null;
     this.isModalOpen = true;
-    console.log('📝 Abrindo modal para criar usuário');
   }
 
   openUpdateUserModal(user: UserResponseDTO) {
     this.selectedUser = { ...user }; // Clone
     this.isModalOpen = true;
-    console.log('✏️ Abrindo modal para editar usuário:', user);
   }
 
   onCloseModal() {
     this.isModalOpen = false;
     this.selectedUser = null;
-    console.log('❌ Modal fechado');
   }
 
   onSaveUser(userData: any) {
+    this.lastFormData = userData;
+
     if (this.selectedUser?.id) {
       this.updateUser(this.selectedUser.id, userData);
     } else {
@@ -107,14 +113,12 @@ export class UsersPageComponent implements OnInit {
 
     this.userService.save(userRequest).subscribe({
       next: (response) => {
-        console.log('✅ Usuário criado com sucesso:', response);
         this.users = [...this.users, response];
-        this.onCloseModal();
-        this.isLoading = false;
         this.toastService.success('Usuário criado com sucesso!');
+        this.isLoading = false;
+        this.onCloseModal();
       },
       error: (error) => {
-        console.error('❌ Erro ao criar usuário:', error);
         this.isLoading = false;
         this.toastService.error('Erro ao criar usuário. Tente novamente.');
       }
@@ -139,19 +143,13 @@ export class UsersPageComponent implements OnInit {
 
     this.userService.update(id, userUpdateRequest).subscribe({
       next: (response) => {
-        console.log('✅ Usuário atualizado com sucesso:', response);
-
         const index = this.users.findIndex(u => u.id === id);
-        if (index !== -1) {
-          this.users[index] = response;
-        }
-
-        this.onCloseModal();
-        this.isLoading = false;
+        if (index !== -1) { this.users[index] = response; }
         this.toastService.success('Usuário atualizado com sucesso!');
+        this.isLoading = false;
+        this.onCloseModal();
       },
       error: (error) => {
-        console.error('❌ Erro ao atualizar usuário:', error);
         this.isLoading = false;
         this.toastService.error('Erro ao atualizar usuário. Tente novamente.');
       }
@@ -162,40 +160,7 @@ export class UsersPageComponent implements OnInit {
     if (!user.id) return;
 
     this.isLoading = true;
-
-    const updatedStatus = !user.active;
-
-    const userUpdateRequest: UserUpdateRequestDTO = {
-      password: '',
-      role: user.role,
-      name: user.name,
-      cnpjCpf: user.cnpjCpf,
-      phoneNumber: user.phoneNumber,
-      email: user.email,
-      address: user.address,
-      city: user.city,
-      uf: user.uf,
-      active: updatedStatus
-    };
-
-    this.userService.update(user.id, userUpdateRequest).subscribe({
-      next: (response) => {
-        console.log(`✅ Status do usuário ${updatedStatus ? 'ativado' : 'desativado'} com sucesso:`, response);
-
-        const index = this.users.findIndex(u => u.id === user.id);
-        if (index !== -1) {
-          this.users[index] = response;
-        }
-
-        this.isLoading = false;
-        this.toastService.success(`Usuário ${updatedStatus ? 'ativado' : 'desativado'} com sucesso!`);
-      },
-      error: (error) => {
-        console.error('❌ Erro ao alterar status do usuário:', error);
-        this.isLoading = false;
-        this.toastService.error('Erro ao alterar status. Tente novamente.');
-      }
-    });
+    this.updateUser(user.id, { ...user, active: !user.active });
   }
 
   onChangePassword(data: { userId: number; currentPassword?: string; newPassword: string }) {
@@ -215,25 +180,42 @@ export class UsersPageComponent implements OnInit {
     });
   }
 
+  //DELETE
   onDeleteUser(user: UserResponseDTO) {
+    this.selectedUser = user;
+    this.isModalConfirmOpen = true;
+  }
+
+  onConfirmDelete() {
+    if (!this.selectedUser?.id) {return;}
+
     this.isLoading = true;
+    this.isModalConfirmOpen = false;
 
-    const confirmed = window.confirm('Tem certeza que deseja excluir este usuário?');
-
-    if (!confirmed) return;
-
-    this.userService.delete(user.id).subscribe({
+    this.userService.delete(this.selectedUser.id).subscribe({
       next: () => {
-        console.log('✅ Usuário deletado com sucesso');
-        this.isLoading = false;
+        this.users = this.users.filter(u => u.id !== this.selectedUser?.id);
         this.toastService.success('Usuário deletado com sucesso!');
-      },
-      error: (error) => {
-        console.error('❌ Erro ao deletar usuário:', error);
+        this.selectedUser = null;
         this.isLoading = false;
+        this.onCloseConfirmDelete();
+      },
+      error: () => {
+        this.isLoading = false;
+        this.selectedUser = null;
         this.toastService.error('Erro ao deletar usuário. Tente novamente.');
       }
     });
+  }
+
+  onCancelDelete() {
+    this.isModalConfirmOpen = false;
+    this.selectedUser = null;
+  }
+
+  onCloseConfirmDelete() {
+    this.isModalConfirmOpen = false;
+    this.selectedUser = null;
   }
 
 }
