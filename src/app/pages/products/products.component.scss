@@ -1,0 +1,12 @@
+@import "../../../styles/variables.scss";
+
+@media (max-width: 768px) {
+  main { overflow-x: auto; }
+
+  .cards { display: none; }
+
+  .table-functions {
+    display: flex;
+    flex-direction: column;
+  }
+}

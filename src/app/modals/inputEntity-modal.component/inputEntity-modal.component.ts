@@ -6,13 +6,13 @@ import { CustomerResponseDTO } from '../../services/customer.service';
 import { SupplierResponseDTO } from '../../services/supplier.service';
 
 @Component({
-  selector: 'app-input-modal',
+  selector: 'app-inputEntity-modal',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './input-modal.component.html',
-  styleUrl: './input-modal.component.scss'
+  templateUrl: './inputEntity-modal.component.html',
+  styleUrl: './inputEntity-modal.component.scss'
 })
-export class InputModalComponent implements OnInit, OnChanges {
+export class InputEntityModalComponent implements OnInit, OnChanges {
 
   @Input() isOpen = false;
   @Input() user: UserResponseDTO | null = null;

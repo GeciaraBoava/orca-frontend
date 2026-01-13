@@ -1,15 +1,19 @@
 <div class="table-wrapper">
 
   <section class="table-functions">
-    <input type="text" placeholder="Digite um nome para buscar" (input)="onSearch($event)" />
+    <div  class="table-type">
+      <i class="material-icons-outlined">{{ iconName }}</i>
+      <span>{{ tableName }} </span>
+    </div>
     <div class="buttons">
+      <input type="text" placeholder="Digite um nome para buscar" (input)="onSearch($event)" />
       @if (showLoads) {
         <ng-container>
           <button class="load"><i class="material-icons">upload</i>Importar</button>
           <button class="load"><i class="material-icons">publish</i>Exportar</button>
         </ng-container>
       }
-      <button class="add" (click)="onCreate()"><i class="material-icons">add</i>Cadastrar Novo</button>
+      <button class="add" (click)="onCreate()"><i class="material-icons">add</i>Adicionar</button>
     </div>
   </section>
 

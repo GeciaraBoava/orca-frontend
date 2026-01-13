@@ -3,7 +3,7 @@ import {DefaultLoginLayoutComponent} from "../../components/default-login-layout
 import {DefaultHomeLayoutComponent} from '../../components/default-home-layout/default-home-layout.component';
 
 @Component({
-  selector: 'app-users',
+  selector: 'app-products',
   imports: [
     DefaultHomeLayoutComponent
   ],

@@ -1,0 +1,45 @@
+@import "../../../styles/variables.scss";
+
+:host {
+  .configs-page {
+    ::ng-deep .table-wrapper {
+      box-shadow: none;
+    }
+  }
+}
+
+main {
+  width: 100%;
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.head {
+  color: $secondary-color;
+  background: $gray-secondary-bg;
+  padding: 1rem;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  border-radius: 8px;
+
+    .title-section {
+      background-color: $gray-secondary-bg;
+      color: $secondary-color;
+      border-radius: 6px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+
+      .material-icons {
+        font-size: 28px;
+      }
+
+      .icon {
+        color: $details2-color;
+      }
+    }
+}
+
+

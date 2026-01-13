@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfigsComponent } from './configs.component';
+import { InputEntityModalComponent } from './inputEntity-modal.component';
 
-describe('BudgetsComponent', () => {
-  let component: ConfigsComponent;
-  let fixture: ComponentFixture<ConfigsComponent>;
+describe('UserModalComponent', () => {
+  let component: InputEntityModalComponent;
+  let fixture: ComponentFixture<InputEntityModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ConfigsComponent]
+      imports: [InputEntityModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ConfigsComponent);
+    fixture = TestBed.createComponent(InputEntityModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

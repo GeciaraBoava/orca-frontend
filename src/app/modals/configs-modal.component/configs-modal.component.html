@@ -1,0 +1,53 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="onClose()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+        <h2>{{ isEditMode ? 'Editar' : 'Cadastrar ' }} {{ label }}</h2>
+        <button class="close-btn" (click)="onClose()">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="name">Nome *</label>
+              <input id="name" type="text" formControlName="name"
+                     placeholder="Digite o tipo/símbolo"
+                     [class.invalid]="isFieldInvalid('name')" />
+
+              @if (isFieldInvalid('name')) {
+                <span class="error-message">{{ getErrorMessage('name') }}</span>
+              }
+            </div>
+
+            <div class="form-group full-width">
+              <label for="description">Descrição *</label>
+              <input id="description" type="text" formControlName="description"
+                     placeholder="Digite o descrição"
+                     [class.invalid]="isFieldInvalid('description')" />
+
+              @if (isFieldInvalid('description')) {
+                <span class="error-message">{{ getErrorMessage('description') }}</span>
+              }
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="onClose()">
+          <i class="material-icons">delete</i>
+          Cancelar
+        </button>
+        <button type="button" class="btn-save" (click)="onSubmit()" [disabled]="!canSubmit()">
+          <i class="material-icons">save</i>
+          {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

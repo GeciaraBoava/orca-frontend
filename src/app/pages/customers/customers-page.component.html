@@ -1,47 +1,33 @@
 <app-default-home-layout pageTitle="Gestão de Clientes">
   <main>
-    <section class="cards">
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Clientes Cadastrados</span>
-          <span class="quantity">{{ totalCustomers }}</span>
-        </div>
-        <span class="layers material-icons">layers</span>
-      </div>
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Clientes Ativos</span>
-          <span class="quantity">{{ activeCustomers }}</span>
-        </div>
-        <span class="check material-icons">check_box</span>
-      </div>
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Clientes Inativos</span>
-          <span class="quantity">{{ inactiveCustomers }}</span>
-        </div>
-        <span class="disabled material-icons-round">disabled_by_default</span>
-      </div>
-    </section>
+    <app-default-cards-layout
+      [tipoCadastro]="tipoCadastro"
+      [total]="totalCustomers"
+      [active]="activeCustomers"
+      [inactive]="inactiveCustomers"
+    >
+    </app-default-cards-layout>
     <app-default-table-layout
       [data]="customers"
       [columns]="customersColumns"
       [pageSize]="10"
       [showLoads]="false"
+      [tableName]="'Cadastro de '+ tipoCadastro"
+      [iconName]="'people'"
       (editClicked)="openUpdateCustomerModal($event)"
       (createClicked)="openCreateCustomerModal()"
       (toggleStatus)="onToggleCustomerStatus($event)"
       (deleteClicked)="onDeleteCustomer($event)"
     >
     </app-default-table-layout>
-    <app-input-modal
+    <app-inputEntity-modal
       [isOpen]="isModalOpen"
       [customer]="selectedCustomer"
       [isUserProfile]="false"
       [entityType]="'cliente'"
       (close)="onCloseModal()"
       (save)="onSaveCustomer($event)"
-    ></app-input-modal>
+    ></app-inputEntity-modal>
     <app-confirm-modal
       title="Confirmar Exclusão"
       message="Tem certeza que deseja excluir este cliente?"

@@ -1,16 +1,43 @@
 @import "../../../styles/variables.scss";
 
+.table-wrapper {
+  padding: 1rem;
+  border: 1px solid $gray-primary-bg;
+  border-radius: 8px;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+}
+
 .table-functions {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 2rem;
+  justify-content: space-between;
+  gap: 1rem;
   margin-bottom: 1rem;
+
+  .table-type {
+    display: flex;
+    gap: 8px;
+    height: 2.4rem;
+    padding: 0.5rem 1rem;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: $secondary-color;
+    background-color: $white-color;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    border-radius: 4px;
+
+    i {
+      font-size: 1.5rem;
+      color: $details2-color;
+    }
+  }
 
   input {
     flex: 1;
     height: 40px;
-    border: 1px solid $secondary-color;
-    border-color: $tertiary-color;
+    border: 0.5px solid $gray-primary-bg;
     border-radius: 4px;
     padding: 0.5rem;
   }
@@ -32,7 +59,7 @@
       cursor: pointer;
       border-radius: 4px;
       background: $gray-secondary-bg;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       border: 1px solid $secondary-color;
       font-size: 1rem;
 
@@ -46,14 +73,14 @@
       display: flex;
       align-items: center;
       justify-content: space-around;
-      width: 200px;
+      width: 150px;
       padding: 0.5rem;
       cursor: pointer;
-      color: $gray-secondary-bg;
-      background: $tertiary-color;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      border: 2px solid $tertiary-color;
+      background: $secondary-color;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      border: 2px solid $secondary-color;
       border-radius: 4px;
+      color: $gray-secondary-bg;
       font-size: 1rem;
 
       .material-icons {
@@ -79,11 +106,15 @@ table {
       font-weight: 500;
       text-align: center;
       vertical-align: middle;
+
+      border: 1px solid $primary-color;
     }
   }
 
   .line {
     border-bottom: 1px solid $gray-secondary-bg;
+    background: $white-color;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     font-size: 0.9rem;
     color: $secondary-color;
 
@@ -92,9 +123,6 @@ table {
       text-align: center;
       vertical-align: middle;
       border-right: 1px solid $gray-secondary-bg;
-
-      .icon-true { color: $tertiary-color; }
-      .icon-false { color: $details1-color; }
     }
 
     td:first-child {
@@ -173,17 +201,18 @@ table {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  color: $secondary-color;
+  color: dimgray;
+  font-size: 0.9rem;
 
   button {
     width: 100px;
     padding: 0.5rem;
     cursor: pointer;
     border-radius: 4px;
-    background: $gray-secondary-bg;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border: 1px solid $secondary-color;
-    font-size: 1rem;
+    background: $gray-primary-bg;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    border: 1px solid $gray-primary-bg;
+    font-size: 0.9rem;
   }
 }
 

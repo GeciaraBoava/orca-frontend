@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {DefaultHomeLayoutComponent} from '../../components/default-home-layout/default-home-layout.component';
 import {ColumnConfig, DefaultTableLayoutComponent} from '../../components/default-table-layout/default-table-layout.component';
+import {InputEntityModalComponent} from '../../modals/inputEntity-modal.component/inputEntity-modal.component';
+import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
 import {ToastrService} from 'ngx-toastr';
 import {
   CustomerRequestDTO,
@@ -8,22 +10,30 @@ import {
   CustomerService,
   CustomerUpdateRequestDTO
 } from '../../services/customer.service';
-import {InputModalComponent} from '../../modals/input-modal.component/input-modal.component';
-import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
+import {
+  DefaultCardsLayoutComponent
+} from '../../components/default-cards-layout/default-cards-layout.component';
 
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent, ConfirmModalComponent],
+  imports: [
+    DefaultHomeLayoutComponent,
+    DefaultTableLayoutComponent,
+    InputEntityModalComponent,
+    ConfirmModalComponent,
+    DefaultCardsLayoutComponent
+  ],
   templateUrl: './customers-page.component.html',
   styleUrl: './customers-page.component.scss',
 })
 export class CustomersPageComponent implements OnInit {
-
-  customers: CustomerResponseDTO[] = [];
   totalCustomers: number = 0;
   activeCustomers: number = 0;
   inactiveCustomers: number = 0;
+  tipoCadastro: string = "Clientes";
+
+  customers: CustomerResponseDTO[] = [];
 
   isModalOpen = false;
   isModalConfirmOpen = false;
@@ -71,8 +81,8 @@ export class CustomersPageComponent implements OnInit {
     { key: 'uf', label: 'UF', searchable: true, filterable: false },
     { key: 'active', label: 'Ativo', searchable: true, filterable: false, type: 'toggle' },
     { key: 'customerType', label: 'Tipo', searchable: true, filterable: false },
-    { key: 'registeredAt', label: 'Data de registro', searchable: true, filterable: false },
-    { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false },
+    { key: 'registeredAt', label: 'Data de registro', searchable: true, filterable: false, type: 'date' },
+    { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false, type: 'date' },
     { key: 'actions', label: 'Ações', type: 'actions' },
   ];
 

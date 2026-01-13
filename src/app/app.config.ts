@@ -6,10 +6,11 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import {provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, provideHttpClient, withFetch, withInterceptors} from '@angular/common/http';
 import { provideToastr } from 'ngx-toastr';
 import { tokenInterceptor } from './interceptors/token.interceptor';
 import {provideAnimations} from '@angular/platform-browser/animations';
+import {authErrorInterceptor} from './interceptors/authInterceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideHttpClient(
-      withInterceptors([tokenInterceptor])
+      withInterceptors([tokenInterceptor, authErrorInterceptor])
     ),
     provideToastr()
   ]

@@ -1,40 +1,26 @@
 <app-default-home-layout pageTitle="Gestão de Usuários">
   <main>
-    <section class="cards">
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Usuários Cadastrados</span>
-          <span class="quantity">{{ totalUsers }}</span>
-        </div>
-        <span class="layers material-icons">layers</span>
-      </div>
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Usuários Ativos</span>
-          <span class="quantity">{{ activeUsers }}</span>
-        </div>
-        <span class="check material-icons">check_box</span>
-      </div>
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Usuários Inativos</span>
-          <span class="quantity">{{ inactiveUsers }}</span>
-        </div>
-        <span class="disabled material-icons-round">disabled_by_default</span>
-      </div>
-    </section>
+    <app-default-cards-layout
+      [tipoCadastro]="tipoCadastro"
+      [total]="totalUsers"
+      [active]="activeUsers"
+      [inactive]="inactiveUsers"
+    >
+    </app-default-cards-layout>
     <app-default-table-layout
       [data]="users"
       [columns]="userColumns"
       [pageSize]="10"
       [showLoads]="false"
+      [tableName]="'Cadastro de '+ tipoCadastro"
+      [iconName]="'manage_accounts'"
       (editClicked)="openUpdateUserModal($event)"
       (createClicked)="openCreateUserModal()"
       (toggleStatus)="onToggleUserStatus($event)"
       (deleteClicked)="onDeleteUser($event)"
     >
     </app-default-table-layout>
-    <app-input-modal
+    <app-inputEntity-modal
       [isOpen]="isModalOpen"
       [user]="selectedUser"
       [isUserProfile]="false"
@@ -43,7 +29,7 @@
       (close)="onCloseModal()"
       (save)="onSaveUser($event)"
       (changePassword)="onChangePassword($event)"
-    ></app-input-modal>
+    ></app-inputEntity-modal>
     <app-confirm-modal
       title="Confirmar Exclusão"
       message="Tem certeza que deseja excluir este usuário?"

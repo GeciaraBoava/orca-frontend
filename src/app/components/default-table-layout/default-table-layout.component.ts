@@ -1,18 +1,19 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
+import {CommonModule, DatePipe} from '@angular/common';
 
 export interface ColumnConfig<T extends object> {
   key: keyof T | 'actions';
   label: string;
   searchable?: boolean;
   filterable?: boolean;
-  type?: 'text' | 'boolean' | 'actions' | 'toggle';
+  type?: 'text' | 'boolean' | 'actions' | 'toggle' | 'date';
 }
 
 @Component({
   selector: 'app-default-table-layout',
   standalone: true,
-  imports: [  ],
+  imports: [CommonModule],
+  providers: [DatePipe],
   templateUrl: './default-table-layout.component.html',
   styleUrl: './default-table-layout.component.scss',
 })
@@ -21,6 +22,8 @@ export class DefaultTableLayoutComponent<T extends object> {
   @Input() columns: ColumnConfig<T>[] = [];
   @Input() pageSize = 5;
   @Input() showLoads: boolean = true;
+  @Input() tableName: string = '';
+  @Input() iconName: string = '';
 
   @Output() editClicked = new EventEmitter<T>();
   @Output() deleteClicked = new EventEmitter<T>();
@@ -34,12 +37,24 @@ export class DefaultTableLayoutComponent<T extends object> {
   sortKey: keyof T | null = null;
   sortDirection: 'asc' | 'desc' = 'asc';
 
+  constructor(private datePipe: DatePipe) {}
+
   isDataKey(key: keyof T | 'actions'): key is keyof T {
     return key !== 'actions';
   }
 
   getValue(item: T, key: keyof T | 'actions'): any {
-    return this.isDataKey(key) ? item[key] : null;
+    if (!this.isDataKey(key)) return null;
+
+    const column = this.columns.find(c => c.key === key);
+    const value = item[key];
+
+    if (column?.type === 'date' && value) {
+      const dateValue = new Date(value as string);
+      return this.datePipe.transform(dateValue, 'dd/MM/yy HH:mm:ss');
+    }
+
+    return value;
   }
 
   onEdit(item: any) {

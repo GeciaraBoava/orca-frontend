@@ -2,7 +2,7 @@ import {Component, HostListener, Input, input} from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {UserResponseDTO, UserService, UserUpdateRequestDTO} from '../../services/user.service';
 import {ToastrService} from 'ngx-toastr';
-import {InputModalComponent} from '../../modals/input-modal.component/input-modal.component';
+import {InputEntityModalComponent} from '../../modals/inputEntity-modal.component/inputEntity-modal.component';
 import {AuthService} from '../../services/auth.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {AuthService} from '../../services/auth.service';
   imports: [
     RouterLink,
     RouterLinkActive,
-    InputModalComponent
+    InputEntityModalComponent
   ],
   templateUrl: './default-home-layout.component.html',
   styleUrl: './default-home-layout.component.scss',

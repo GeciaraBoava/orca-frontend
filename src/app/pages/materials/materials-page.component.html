@@ -1,0 +1,41 @@
+<app-default-home-layout pageTitle="Gestão de Materiais">
+  <main>
+    <app-default-cards-layout
+      [tipoCadastro]="tipoCadastro"
+      [total]="totalMaterials"
+      [active]="activeMaterials"
+      [inactive]="inactiveMaterials"
+    >
+    </app-default-cards-layout>
+    <app-default-table-layout
+      [data]="materials"
+      [columns]="materialColumns"
+      [pageSize]="10"
+      [showLoads]="false"
+      [tableName]="'Cadastro de '+ tipoCadastro"
+      [iconName]="'layers'"
+      (editClicked)="openUpdateMaterialModal($event)"
+      (createClicked)="openCreateMaterialModal()"
+      (toggleStatus)="onToggleMaterialStatus($event)"
+      (deleteClicked)="onDeleteMaterial($event)"
+    >
+    </app-default-table-layout>
+    <app-inputMaterial-modal
+      [isOpen]="isModalOpen"
+      [material]="selectedMaterial"
+      [initialData]="selectedMaterial || lastFormData"
+      (close)="onCloseModal()"
+      (save)="onSaveMaterial($event)"
+    ></app-inputMaterial-modal>
+    <app-confirm-modal
+      title="Confirmar Exclusão"
+      message="Tem certeza que deseja excluir este material?"
+      confirmText="Sim, Excluir"
+      cancelText="Cancelar"
+      confirmType="danger"
+      [isOpen]="isModalConfirmOpen"
+      (confirmAction)="onConfirmDelete()"
+      (cancelAction)="onCancelDelete()">
+    </app-confirm-modal>
+  </main>
+</app-default-home-layout>

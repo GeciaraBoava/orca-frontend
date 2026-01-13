@@ -27,6 +27,10 @@ export class AuthService {
       )
   }
 
+  isLogged(): boolean {
+    return !!localStorage.getItem('auth-token');
+  }
+
   logout(): void {
     sessionStorage.clear();
     console.log('✅ Logout realizado');

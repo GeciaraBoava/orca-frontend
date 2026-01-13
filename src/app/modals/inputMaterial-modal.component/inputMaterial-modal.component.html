@@ -1,0 +1,85 @@
+@if (isOpen) {
+  <div class="modal-overlay" (click)="onClose()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+
+      <div class="modal-header">
+        <h2>{{ isEditMode ? 'Editar' : 'Cadastrar Novo' }} Material</h2>
+        <button class="close-btn" (click)="onClose()">
+          <i class="material-icons">close</i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="description">Descrição *</label>
+              <input id="description" type="text" formControlName="description"
+                     placeholder="Digite a descrição"
+                     [class.invalid]="isFieldInvalid('description')" />
+
+              @if (isFieldInvalid('description')) {
+                <span class="error-message">{{ getErrorMessage('description') }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="materialTypeId">Tipo do Material *</label>
+
+              <select id="materialTypeId" formControlName="materialTypeId"
+                      [class.invalid]="isFieldInvalid('materialTypeId')">
+
+                @for (materialType of materialTypes; track materialType.id) {
+                  <option [value]="materialType.id">{{ materialType.description }}</option>
+                }
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="unitMeasureId">Unidade de Medida *</label>
+
+              <select id="unitMeasureId" formControlName="unitMeasureId"
+                      [class.invalid]="isFieldInvalid('unitMeasureId')">
+
+                @for (unitMeasure of unitMeasures; track unitMeasure.id) {
+                  <option [value]="unitMeasure.id">{{ unitMeasure.description }} ({{ unitMeasure.name }})</option>
+                }
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="currentPrice">Preço Atual *</label>
+              <input (input)="onPriceInput($event)"
+                     [value]="displayPrice"
+                     formControlName="currentPrice"
+                     type="text"
+                     placeholder="Digite a preço atual"
+                     [class.invalid]="isFieldInvalid('currentPrice')" />
+
+              @if (isFieldInvalid('currentPrice')) {
+                <span class="error-message">{{ getErrorMessage('currentPrice') }}</span>
+              }
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn-cancel" (click)="onClose()">
+          <i class="material-icons">delete</i>
+          Cancelar
+        </button>
+        <button type="button" class="btn-save" (click)="onSubmit()" [disabled]="!canSubmit()">
+          <i class="material-icons">save</i>
+          {{ isEditMode ? 'Salvar Alterações' : 'Cadastrar' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+}

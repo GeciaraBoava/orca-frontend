@@ -1,46 +1,32 @@
-<app-default-home-layout pageTitle="Gestão de Clientes">
+<app-default-home-layout pageTitle="Gestão de Fornecedores">
   <main>
-    <section class="cards">
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Clientes Cadastrados</span>
-          <span class="quantity">{{ totalSuppliers }}</span>
-        </div>
-        <span class="layers material-icons">layers</span>
-      </div>
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Clientes Ativos</span>
-          <span class="quantity">{{ activeSuppliers }}</span>
-        </div>
-        <span class="check material-icons">check_box</span>
-      </div>
-      <div class="card">
-        <div class="card-label">
-          <span class="label">Total de Clientes Inativos</span>
-          <span class="quantity">{{ inactiveSuppliers }}</span>
-        </div>
-        <span class="disabled material-icons-round">disabled_by_default</span>
-      </div>
-    </section>
+    <app-default-cards-layout
+      [tipoCadastro]="tipoCadastro"
+      [total]="totalSuppliers"
+      [active]="activeSuppliers"
+      [inactive]="inactiveSuppliers"
+    >
+    </app-default-cards-layout>
     <app-default-table-layout
       [data]="suppliers"
       [columns]="suppliersColumns"
       [pageSize]="10"
       [showLoads]="false"
+      [tableName]="'Cadastro de '+ tipoCadastro"
+      [iconName]="'local_shipping'"
       (editClicked)="openUpdateSupplierModal($event)"
       (createClicked)="openCreateSupplierModal()"
       (toggleStatus)="onToggleSupplierStatus($event)"
       (deleteClicked)="onDeleteSupplier($event)"
     >
     </app-default-table-layout>
-    <app-input-modal
+    <app-inputEntity-modal
       [isOpen]="isModalOpen"
       [supplier]="selectedSupplier"
       [entityType]="'fornecedor'"
       (close)="onCloseModal()"
       (save)="onSaveSupplier($event)"
-    ></app-input-modal>
+    ></app-inputEntity-modal>
     <app-confirm-modal
       title="Confirmar Exclusão"
       message="Tem certeza que deseja excluir este fornecedor?"

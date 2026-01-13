@@ -1,9 +1,9 @@
 <body>
   <header>
     <a routerLink="/home">
-      <img class="logo-image" src="images/logo-clara.png" alt="Símbolo logo">
+      <img class="logo-image" src="images/logo-escura.png" alt="Símbolo logo">
     </a>
-    <span class="page-name">{{ pageTitle }}</span>
+    <h1 class="page-name">{{ pageTitle }}</h1>
     <section class="user-section">
       <div class="user-data">
         <div class="identity">
@@ -14,7 +14,7 @@
           <i class="material-symbols-outlined" (click)="openUpdateUserModal()">
             person_edit
           </i>
-          <app-input-modal
+          <app-inputEntity-modal
             [isOpen]="isModalOpen"
             [user]="selectedUser"
             [isUserProfile]="true"
@@ -22,11 +22,8 @@
             (close)="onCloseModal()"
             (save)="onSaveUser($event)"
             (changePassword)="$event"
-          ></app-input-modal>
+          ></app-inputEntity-modal>
         </div>
-      </div>
-      <div>
-        <button (click)="logout()">Sair</button>
       </div>
     </section>
   </header>
@@ -34,49 +31,60 @@
   <!-- Sidebar Desktop -->
   <aside class="sidebar">
     <nav class="menu">
-      <a routerLink="/budgets" routerLinkActive="active">
-        <span class="material-icons">request_quote</span>
-        <span class="label">Orçamentos</span>
-      </a>
-
-      <a routerLink="/products" routerLinkActive="active">
-        <span class="material-icons">shopping_basket</span>
-        <span class="label">Produtos</span>
-      </a>
-
-      <a routerLink="/compositions" routerLinkActive="active">
-        <span class="material-icons">inventory_2</span>
-        <span class="label">Composições</span>
-      </a>
-
-      <a routerLink="/materials" routerLinkActive="active">
-        <span class="material-icons">layers</span>
-        <span class="label">Materiais</span>
-      </a>
-
-      <a routerLink="/suppliers" routerLinkActive="active">
-        <span class="material-icons">local_shipping</span>
-        <span class="label">Fornecedores</span>
-      </a>
-
-      <a routerLink="/customers" routerLinkActive="active">
-        <span class="material-icons">people</span>
-        <span class="label">Clientes</span>
-      </a>
-
-      @if(role === "Administrador") {
-        <a routerLink="/users" routerLinkActive="active">
-          <span class="material-icons">manage_accounts</span>
-          <span class="label">Usuários</span>
+      <div>
+        <a class="menu-items" routerLink="/budgets" routerLinkActive="active">
+          <span class="material-icons">request_quote</span>
+          <span class="label">Orçamentos</span>
         </a>
-      }
 
-      <a routerLink="/config" routerLinkActive="active">
-        <span class="material-icons">settings</span>
-        <span class="label">Configurações</span>
-      </a>
+        <a class="menu-items" routerLink="/products" routerLinkActive="active">
+          <span class="material-icons">shopping_basket</span>
+          <span class="label">Produtos</span>
+        </a>
+
+        <a class="menu-items" routerLink="/compositions" routerLinkActive="active">
+          <span class="material-icons">inventory_2</span>
+          <span class="label">Composições</span>
+        </a>
+
+        <a class="menu-items" routerLink="/materials" routerLinkActive="active">
+          <span class="material-icons">layers</span>
+          <span class="label">Materiais</span>
+        </a>
+
+        <a class="menu-items" routerLink="/suppliers" routerLinkActive="active">
+          <span class="material-icons">local_shipping</span>
+          <span class="label">Fornecedores</span>
+        </a>
+
+        <a class="menu-items" routerLink="/customers" routerLinkActive="active">
+          <span class="material-icons">people</span>
+          <span class="label">Clientes</span>
+        </a>
+
+        @if(role === "Administrador") {
+          <a class="menu-items" routerLink="/users" routerLinkActive="active">
+            <span class="material-icons">manage_accounts</span>
+            <span class="label">Usuários</span>
+          </a>
+        }
+
+        <a class="menu-items" routerLink="/configs" routerLinkActive="active">
+          <span class="material-icons">settings</span>
+          <span class="label">Configurações</span>
+        </a>
+      </div>
+      <div>
+        <a class="menu-items" (click)="logout()">
+          <span class="material-icons">logout</span>
+          <span class="label">Sair</span>
+        </a>
+      </div>
 
     </nav>
+
+
+
   </aside>
 
   <section class="section-content">

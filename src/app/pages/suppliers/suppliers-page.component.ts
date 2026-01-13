@@ -7,13 +7,16 @@ import {
   SupplierResponseDTO, SupplierService,
   SupplierUpdateDTO
 } from '../../services/supplier.service';
-import {InputModalComponent} from '../../modals/input-modal.component/input-modal.component';
+import {InputEntityModalComponent} from '../../modals/inputEntity-modal.component/inputEntity-modal.component';
 import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
+import {
+  DefaultCardsLayoutComponent
+} from '../../components/default-cards-layout/default-cards-layout.component';
 
 @Component({
   selector: 'app-suppliers',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputModalComponent, ConfirmModalComponent],
+  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputEntityModalComponent, ConfirmModalComponent, DefaultCardsLayoutComponent],
   templateUrl: './suppliers-page.component.html',
   styleUrl: './suppliers-page.component.scss',
 })
@@ -23,6 +26,7 @@ export class SuppliersPageComponent implements OnInit {
   totalSuppliers: number = 0;
   activeSuppliers: number = 0;
   inactiveSuppliers: number = 0;
+  tipoCadastro: string = "Fornecedores";
 
   isModalOpen = false;
   isModalConfirmOpen = false;
@@ -69,8 +73,8 @@ export class SuppliersPageComponent implements OnInit {
     { key: 'city', label: 'Cidade', searchable: true, filterable: false },
     { key: 'uf', label: 'UF', searchable: true, filterable: false },
     { key: 'active', label: 'Ativo', searchable: true, filterable: false, type: 'toggle' },
-    { key: 'registeredAt', label: 'Data de registro', searchable: true, filterable: false },
-    { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false },
+    { key: 'registeredAt', label: 'Data de registro', searchable: true, filterable: false, type: 'date' },
+    { key: 'updatedAt', label: 'Última atualização', searchable: true, filterable: false, type: 'date' },
     { key: 'actions', label: 'Ações', type: 'actions' },
   ];
 

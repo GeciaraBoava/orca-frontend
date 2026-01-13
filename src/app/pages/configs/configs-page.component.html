@@ -1,0 +1,111 @@
+<app-default-home-layout
+  pageTitle="Configurações Gerais"
+  class="configs-page"
+>
+  <main>
+    <header class="head">
+      <h3 class="title-section">
+        <i class="material-icons icon">straighten</i>
+        Unidades de Medida
+        <i class="material-icons" (click)="toggleUnitMeasureSection()">
+          {{ isUnitMeasureOpen ? 'expand_less' : 'expand_more' }}
+        </i>
+      </h3>
+      @if(isUnitMeasureOpen) {
+        <section class="table-section">
+          <app-default-table-layout
+            [data]="unitMeasures"
+            [columns]="unitMeasureColumns"
+            [pageSize]="10"
+            [showLoads]="false"
+            [tableName]="'Cadastro de unidades de medida'"
+            [iconName]="''"
+            (editClicked)="openUpdateModal($event, 'unitMeasure')"
+            (createClicked)="openCreateModal('unitMeasure')"
+            (toggleStatus)="onToggleStatus($event, 'unitMeasure')"
+            (deleteClicked)="onDelete($event, 'unitMeasure')"
+          >
+          </app-default-table-layout>
+          <app-configs-modal
+            [isOpen]="isModalUnitMeasuresOpen"
+            [entityType]="'unitMeasure'"
+            [label]="'Unidade de Medida'"
+            (close)="onCloseModal('unitMeasure')"
+            (save)="onSave($event, 'unitMeasure')"
+          >
+          </app-configs-modal>
+        </section>
+      }
+    </header>
+
+    <header class="head">
+      <h3 class="title-section">
+        <i class="material-icons-outlined icon">extension</i>
+        Tipos de Material
+        <i class="material-icons" (click)="toggleMaterialTypesSection()">
+          {{ isMaterialTypesOpen ? 'expand_less' : 'expand_more' }}
+        </i>
+      </h3>
+      @if(isMaterialTypesOpen) {
+        <section class="table-section">
+          <app-default-table-layout
+            [data]="materialTypes"
+            [columns]="materialTypeColumns"
+            [pageSize]="10"
+            [showLoads]="false"
+            [tableName]="'Cadastro de tipos de material'"
+            [iconName]="''"
+            (editClicked)="openUpdateModal($event, 'materialType')"
+            (createClicked)="openCreateModal('materialType')"
+            (toggleStatus)="onToggleStatus($event, 'materialType')"
+            (deleteClicked)="onDelete($event, 'materialType')"
+          >
+          </app-default-table-layout>
+          <app-configs-modal
+            [isOpen]="isModalMaterialTypesOpen"
+            [entityType]="'materialType'"
+            [label]="'Tipo de Material'"
+            (close)="onCloseModal('materialType')"
+            (save)="onSave($event, 'materialType')"
+          >
+          </app-configs-modal>
+        </section>
+      }
+    </header>
+
+    <header class="head">
+      <h3 class="title-section">
+        <i class="material-icons icon">wysiwyg</i>
+        Tipos de Item
+        <i class="material-icons" (click)="toggleItemTypesSection()">
+          {{ isItemTypesOpen ? 'expand_less' : 'expand_more' }}
+        </i>
+      </h3>
+      @if(isItemTypesOpen) {
+        <section class="table-section">
+          <app-default-table-layout
+            [data]="itemTypes"
+            [columns]="itemTypeColumns"
+            [pageSize]="10"
+            [showLoads]="false"
+            [tableName]="'Cadastro de tipos de item'"
+            [iconName]="''"
+            (editClicked)="openUpdateModal($event, 'itemType')"
+            (createClicked)="openCreateModal('itemType')"
+            (toggleStatus)="onToggleStatus($event, 'itemType')"
+            (deleteClicked)="onDelete($event, 'itemType')"
+          >
+          </app-default-table-layout>
+          <app-configs-modal
+            [isOpen]="isModalItemTypesOpen"
+            [entityType]="'itemType'"
+            [label]="'Tipo de Item'"
+            (close)="onCloseModal('itemType')"
+            (save)="onSave($event, 'itemType')"
+          >
+          </app-configs-modal>
+        </section>
+      }
+    </header>
+  </main>
+</app-default-home-layout>
