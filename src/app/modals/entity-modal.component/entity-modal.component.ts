@@ -6,13 +6,13 @@ import { CustomerResponseDTO } from '../../services/customer.service';
 import { SupplierResponseDTO } from '../../services/supplier.service';
 
 @Component({
-  selector: 'app-inputEntity-modal',
+  selector: 'app-entity-modal',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './inputEntity-modal.component.html',
-  styleUrl: './inputEntity-modal.component.scss'
+  templateUrl: './entity-modal.component.html',
+  styleUrl: './entity-modal.component.scss'
 })
-export class InputEntityModalComponent implements OnInit, OnChanges {
+export class EntityModalComponent implements OnInit, OnChanges {
 
   @Input() isOpen = false;
   @Input() user: UserResponseDTO | null = null;
@@ -98,11 +98,8 @@ export class InputEntityModalComponent implements OnInit, OnChanges {
       validators: this.passwordMatchValidator.bind(this)
     });
 
-    // Remove todos os extras antes de adicionar novamente
     ['role', 'currentPassword', 'newPassword', 'confirmPassword', 'contactName', 'customerType']
-      .forEach(k => {
-        if (this.form.get(k)) this.form.removeControl(k);
-      });
+      .forEach(k => {if (this.form.get(k)) this.form.removeControl(k);});
 
     if (this.entityType === 'usuario') {
       this.form.addControl('role', new FormControl('Administrador', Validators.required));

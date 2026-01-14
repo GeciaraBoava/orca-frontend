@@ -3,7 +3,7 @@ import {DefaultHomeLayoutComponent} from '../../components/default-home-layout/d
 import {ColumnConfig, DefaultTableLayoutComponent} from '../../components/default-table-layout/default-table-layout.component';
 import {ToastrService} from 'ngx-toastr';
 import {UserRequestDTO, UserResponseDTO, UserService, UserUpdateRequestDTO} from '../../services/user.service';
-import {InputEntityModalComponent} from '../../modals/inputEntity-modal.component/inputEntity-modal.component';
+import {EntityModalComponent} from '../../modals/entity-modal.component/entity-modal.component';
 import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
 import {
   DefaultCardsLayoutComponent
@@ -12,7 +12,7 @@ import {
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputEntityModalComponent, ConfirmModalComponent, DefaultCardsLayoutComponent],
+  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, EntityModalComponent, ConfirmModalComponent, DefaultCardsLayoutComponent],
   templateUrl: './users-page.component.html',
   styleUrl: './users-page.component.scss',
 })

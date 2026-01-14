@@ -9,13 +9,13 @@ import {
   MaterialUpdateDTO
 } from '../../services/material.service';
 import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
-import {InputMaterialModalComponent} from '../../modals/inputMaterial-modal.component/inputMaterial-modal.component';
+import {MaterialModalComponent} from '../../modals/material-modal.component/material-modal.component';
 import {DefaultCardsLayoutComponent} from '../../components/default-cards-layout/default-cards-layout.component';
 
 @Component({
   selector: 'app-materials',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, ConfirmModalComponent, InputMaterialModalComponent, DefaultCardsLayoutComponent],
+  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, ConfirmModalComponent, MaterialModalComponent, DefaultCardsLayoutComponent],
   templateUrl: './materials-page.component.html',
   styleUrl: './materials-page.component.scss',
 })
@@ -140,13 +140,13 @@ export class MaterialsPageComponent implements OnInit {
       next: (response) => {
         const index = this.materials.findIndex(u => u.id === id);
         if (index !== -1) { this.materials[index] = response; }
-        this.toastService.success('Usuário atualizado com sucesso!');
+        this.toastService.success('Cadastro de material atualizado com sucesso!');
         this.isLoading = false;
         this.onCloseModal();
       },
       error: (error) => {
         this.isLoading = false;
-        this.toastService.error('Erro ao atualizar usuário. Tente novamente.');
+        this.toastService.error('Erro ao atualizar cadastro de material. Tente novamente.');
       }
     });
 
@@ -177,7 +177,7 @@ export class MaterialsPageComponent implements OnInit {
     this.materialService.delete(this.selectedMaterial.id).subscribe({
       next: () => {
         this.materials = this.materials.filter(u => u.id !== this.selectedMaterial?.id);
-        this.toastService.success('Usuário deletado com sucesso!');
+        this.toastService.success('Material deletado com sucesso!');
         this.selectedMaterial = null;
         this.isLoading = false;
         this.onCloseConfirmDelete();
@@ -185,7 +185,7 @@ export class MaterialsPageComponent implements OnInit {
       error: () => {
         this.isLoading = false;
         this.selectedMaterial = null;
-        this.toastService.error('Erro ao deletar usuário. Tente novamente.');
+        this.toastService.error('Erro ao deletar material. Tente novamente.');
       }
     });
 

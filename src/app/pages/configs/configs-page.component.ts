@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DefaultHomeLayoutComponent } from '../../components/default-home-layout/default-home-layout.component';
 import {ColumnConfig, DefaultTableLayoutComponent} from '../../components/default-table-layout/default-table-layout.component';
-import { UnitMeasureService } from '../../services/unitMerasure.service';
+import { UnitMeasureService } from '../../services/unitMeasure.service';
 import { ToastrService } from 'ngx-toastr';
 import { ItemTypeService } from '../../services/itemType.service';
 import { MaterialTypeService } from '../../services/materialType.service';

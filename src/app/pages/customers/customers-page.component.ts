@@ -1,7 +1,7 @@
 import {Component, OnInit, Output} from '@angular/core';
 import {DefaultHomeLayoutComponent} from '../../components/default-home-layout/default-home-layout.component';
 import {ColumnConfig, DefaultTableLayoutComponent} from '../../components/default-table-layout/default-table-layout.component';
-import {InputEntityModalComponent} from '../../modals/inputEntity-modal.component/inputEntity-modal.component';
+import {EntityModalComponent} from '../../modals/entity-modal.component/entity-modal.component';
 import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
 import {ToastrService} from 'ngx-toastr';
 import {
@@ -20,7 +20,7 @@ import {
   imports: [
     DefaultHomeLayoutComponent,
     DefaultTableLayoutComponent,
-    InputEntityModalComponent,
+    EntityModalComponent,
     ConfirmModalComponent,
     DefaultCardsLayoutComponent
   ],

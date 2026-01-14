@@ -20,13 +20,13 @@
       (deleteClicked)="onDeleteSupplier($event)"
     >
     </app-default-table-layout>
-    <app-inputEntity-modal
+    <app-entity-modal
       [isOpen]="isModalOpen"
       [supplier]="selectedSupplier"
       [entityType]="'fornecedor'"
       (close)="onCloseModal()"
       (save)="onSaveSupplier($event)"
-    ></app-inputEntity-modal>
+    ></app-entity-modal>
     <app-confirm-modal
       title="Confirmar Exclusão"
       message="Tem certeza que deseja excluir este fornecedor?"

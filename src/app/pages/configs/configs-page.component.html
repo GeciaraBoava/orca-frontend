@@ -4,10 +4,10 @@
 >
   <main>
     <header class="head">
-      <h3 class="title-section">
+      <h3 class="title-section" (click)="toggleUnitMeasureSection()">
         <i class="material-icons icon">straighten</i>
         Unidades de Medida
-        <i class="material-icons" (click)="toggleUnitMeasureSection()">
+        <i class="material-icons">
           {{ isUnitMeasureOpen ? 'expand_less' : 'expand_more' }}
         </i>
       </h3>
@@ -39,10 +39,10 @@
     </header>
 
     <header class="head">
-      <h3 class="title-section">
+      <h3 class="title-section" (click)="toggleMaterialTypesSection()">
         <i class="material-icons-outlined icon">extension</i>
         Tipos de Material
-        <i class="material-icons" (click)="toggleMaterialTypesSection()">
+        <i class="material-icons">
           {{ isMaterialTypesOpen ? 'expand_less' : 'expand_more' }}
         </i>
       </h3>
@@ -74,10 +74,10 @@
     </header>
 
     <header class="head">
-      <h3 class="title-section">
+      <h3 class="title-section" (click)="toggleItemTypesSection()">
         <i class="material-icons icon">wysiwyg</i>
         Tipos de Item
-        <i class="material-icons" (click)="toggleItemTypesSection()">
+        <i class="material-icons">
           {{ isItemTypesOpen ? 'expand_less' : 'expand_more' }}
         </i>
       </h3>

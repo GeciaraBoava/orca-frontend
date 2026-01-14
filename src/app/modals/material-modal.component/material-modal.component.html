@@ -15,9 +15,13 @@
           <div class="form-row">
             <div class="form-group full-width">
               <label for="description">Descrição *</label>
-              <input id="description" type="text" formControlName="description"
+              <input id="description"
+                     type="text"
+                     formControlName="description"
+                     [ngClass]="{'edited': form.get('description')?.dirty}"
                      placeholder="Digite a descrição"
-                     [class.invalid]="isFieldInvalid('description')" />
+                     [class.invalid]="isFieldInvalid('description')"
+              />
 
               @if (isFieldInvalid('description')) {
                 <span class="error-message">{{ getErrorMessage('description') }}</span>
@@ -29,8 +33,11 @@
             <div class="form-group full-width">
               <label for="materialTypeId">Tipo do Material *</label>
 
-              <select id="materialTypeId" formControlName="materialTypeId"
-                      [class.invalid]="isFieldInvalid('materialTypeId')">
+              <select id="materialTypeId"
+                      formControlName="materialTypeId"
+                      [class.invalid]="isFieldInvalid('materialTypeId')"
+                      [ngClass]="{'edited': form.get('materialTypeId')?.dirty}"
+              >
 
                 @for (materialType of materialTypes; track materialType.id) {
                   <option [value]="materialType.id">{{ materialType.description }}</option>
@@ -42,8 +49,11 @@
             <div class="form-group">
               <label for="unitMeasureId">Unidade de Medida *</label>
 
-              <select id="unitMeasureId" formControlName="unitMeasureId"
-                      [class.invalid]="isFieldInvalid('unitMeasureId')">
+              <select id="unitMeasureId"
+                      formControlName="unitMeasureId"
+                      [class.invalid]="isFieldInvalid('unitMeasureId')"
+                      [ngClass]="{'edited': form.get('unitMeasureId')?.dirty}"
+              >
 
                 @for (unitMeasure of unitMeasures; track unitMeasure.id) {
                   <option [value]="unitMeasure.id">{{ unitMeasure.description }} ({{ unitMeasure.name }})</option>
@@ -54,11 +64,12 @@
             <div class="form-group">
               <label for="currentPrice">Preço Atual *</label>
               <input (input)="onPriceInput($event)"
-                     [value]="displayPrice"
                      formControlName="currentPrice"
                      type="text"
                      placeholder="Digite a preço atual"
-                     [class.invalid]="isFieldInvalid('currentPrice')" />
+                     [class.invalid]="isFieldInvalid('currentPrice')"
+                     [ngClass]="{'edited': form.get('currentPrice')?.dirty}"
+              />
 
               @if (isFieldInvalid('currentPrice')) {
                 <span class="error-message">{{ getErrorMessage('currentPrice') }}</span>

@@ -20,13 +20,13 @@
       (deleteClicked)="onDeleteMaterial($event)"
     >
     </app-default-table-layout>
-    <app-inputMaterial-modal
+    <app-material-modal
       [isOpen]="isModalOpen"
       [material]="selectedMaterial"
       [initialData]="selectedMaterial || lastFormData"
       (close)="onCloseModal()"
       (save)="onSaveMaterial($event)"
-    ></app-inputMaterial-modal>
+    ></app-material-modal>
     <app-confirm-modal
       title="Confirmar Exclusão"
       message="Tem certeza que deseja excluir este material?"

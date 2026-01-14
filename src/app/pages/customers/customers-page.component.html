@@ -20,14 +20,14 @@
       (deleteClicked)="onDeleteCustomer($event)"
     >
     </app-default-table-layout>
-    <app-inputEntity-modal
+    <app-entity-modal
       [isOpen]="isModalOpen"
       [customer]="selectedCustomer"
       [isUserProfile]="false"
       [entityType]="'cliente'"
       (close)="onCloseModal()"
       (save)="onSaveCustomer($event)"
-    ></app-inputEntity-modal>
+    ></app-entity-modal>
     <app-confirm-modal
       title="Confirmar Exclusão"
       message="Tem certeza que deseja excluir este cliente?"

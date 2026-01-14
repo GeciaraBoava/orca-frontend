@@ -111,11 +111,17 @@
     border-radius: 6px;
     font-size: 14px;
     transition: all 0.2s;
-    color: $secondary-color;
+    color: dimgray;
+    cursor: pointer;
+    background-color: white;
+
+    &.edited {
+      color: $secondary-color;
+    }
 
     &:focus {
       outline: none;
-      border-color: $secondary-color;
+      border-color: lightgray;
       box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
     }
 
@@ -132,30 +138,11 @@
     }
   }
 
-  select {
-    cursor: pointer;
-    background-color: white;
-  }
-
   .error-message {
     font-size: 12px;
     color: #f44336;
     margin-top: 2px;
   }
-}
-
-.password-section {
-  display: flex;
-  flex-direction: column;
-  gap: 22px; // corrige o espaço entre "senha atual" e "nova senha"
-}
-
-.password-section .form-row {
-  gap: 16px;
-}
-
-.password-section .form-group {
-  gap: 8px;
 }
 
 .modal-footer {

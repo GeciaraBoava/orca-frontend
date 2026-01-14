@@ -14,7 +14,7 @@
           <i class="material-symbols-outlined" (click)="openUpdateUserModal()">
             person_edit
           </i>
-          <app-inputEntity-modal
+          <app-entity-modal
             [isOpen]="isModalOpen"
             [user]="selectedUser"
             [isUserProfile]="true"
@@ -22,7 +22,7 @@
             (close)="onCloseModal()"
             (save)="onSaveUser($event)"
             (changePassword)="$event"
-          ></app-inputEntity-modal>
+          ></app-entity-modal>
         </div>
       </div>
     </section>

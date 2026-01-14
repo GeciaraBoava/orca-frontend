@@ -7,7 +7,7 @@ import {
   SupplierResponseDTO, SupplierService,
   SupplierUpdateDTO
 } from '../../services/supplier.service';
-import {InputEntityModalComponent} from '../../modals/inputEntity-modal.component/inputEntity-modal.component';
+import {EntityModalComponent} from '../../modals/entity-modal.component/entity-modal.component';
 import {ConfirmModalComponent} from '../../modals/confirm-modal.component/confirm-modal.component';
 import {
   DefaultCardsLayoutComponent
@@ -16,7 +16,7 @@ import {
 @Component({
   selector: 'app-suppliers',
   standalone: true,
-  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, InputEntityModalComponent, ConfirmModalComponent, DefaultCardsLayoutComponent],
+  imports: [DefaultHomeLayoutComponent, DefaultTableLayoutComponent, EntityModalComponent, ConfirmModalComponent, DefaultCardsLayoutComponent],
   templateUrl: './suppliers-page.component.html',
   styleUrl: './suppliers-page.component.scss',
 })

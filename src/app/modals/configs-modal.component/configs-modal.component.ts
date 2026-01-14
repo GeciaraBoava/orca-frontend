@@ -1,10 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { UserResponseDTO } from "../../services/user.service";
-import { CustomerResponseDTO } from '../../services/customer.service';
-import { SupplierResponseDTO } from '../../services/supplier.service';
-import {UnitMeasureResponseDTO} from '../../services/unitMerasure.service';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import {UnitMeasureResponseDTO} from '../../services/unitMeasure.service';
 import {MaterialTypeResponseDTO} from '../../services/materialType.service';
 import {ItemTypeResponseDTO} from '../../services/itemType.service';
 

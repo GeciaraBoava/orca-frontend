@@ -20,7 +20,7 @@
       (deleteClicked)="onDeleteUser($event)"
     >
     </app-default-table-layout>
-    <app-inputEntity-modal
+    <app-entity-modal
       [isOpen]="isModalOpen"
       [user]="selectedUser"
       [isUserProfile]="false"
@@ -29,7 +29,7 @@
       (close)="onCloseModal()"
       (save)="onSaveUser($event)"
       (changePassword)="onChangePassword($event)"
-    ></app-inputEntity-modal>
+    ></app-entity-modal>
     <app-confirm-modal
       title="Confirmar Exclusão"
       message="Tem certeza que deseja excluir este usuário?"
