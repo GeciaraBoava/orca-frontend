@@ -2,9 +2,10 @@
 
 .table-wrapper {
   padding: 1rem;
-  border: 1px solid $gray-primary-bg;
+  border: 1px solid $gray-1;
   border-radius: 8px;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  background-color: $gray-2;
 }
 
 .table-functions {
@@ -24,8 +25,9 @@
     font-size: 1.2rem;
     font-weight: 500;
     color: $secondary-color;
-    background-color: $white-color;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    background-color: $gray-1;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    border: 1px solid $gray-2;
     border-radius: 4px;
 
     i {
@@ -37,7 +39,7 @@
   input {
     flex: 1;
     height: 40px;
-    border: 0.5px solid $gray-primary-bg;
+    border: 0.5px solid $gray-3;
     border-radius: 4px;
     padding: 0.5rem;
   }
@@ -58,7 +60,7 @@
       padding: 0.5rem;
       cursor: pointer;
       border-radius: 4px;
-      background: $gray-secondary-bg;
+      background: $gray-2;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
       border: 1px solid $secondary-color;
       font-size: 1rem;
@@ -74,18 +76,22 @@
       align-items: center;
       justify-content: space-around;
       width: 150px;
-      padding: 0.5rem;
+      padding: 0.3rem 1rem;
       cursor: pointer;
-      background: $tertiary-color;
+      background: $secondary-color;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      border: 0.5px solid $tertiary-color;
+      border: none;
       border-radius: 4px;
-      color: $gray-secondary-bg;
+      color: $gray-2;
       font-size: 1rem;
 
       .material-icons {
-        font-size: 1.3rem;
-        color: $gray-secondary-bg;
+        font-size: 1rem;
+        color: $gray-2;
+      }
+
+      &:hover {
+        background-color: $details1-color;
       }
     }
   }
@@ -94,61 +100,90 @@
 table {
   width: 100%;
   border-collapse: collapse;
+  border-color: $gray-3;
+  box-shadow: 0 0.5px 3px rgba(0,0,0,0.1);
 
   thead .head {
-    background: $secondary-color;
-    color: $gray-secondary-bg;
+    background: $gray-3;
+    color: $secondary-color;
     vertical-align: middle;
 
     th {
-      padding: 10px 12px;
+      padding: 6px 12px;
       font-size: 0.9rem;
       font-weight: 500;
       text-align: center;
       vertical-align: middle;
 
-      border: 1px solid $primary-color;
+      border: 0.2px solid $gray-2;
     }
   }
 
   .line {
-    border-bottom: 1px solid $gray-secondary-bg;
-    background: $white-color;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    border-bottom: 1px solid whitesmoke;
+    background: $gray-1;
     font-size: 0.9rem;
-    color: $secondary-color;
+    color: $gray-4;
 
     .cell {
-      padding: 8px;
+      padding: 2px 8px;
       text-align: center;
       vertical-align: middle;
-      border-right: 1px solid $gray-secondary-bg;
+      border-right: 1px solid $gray-2;
+
+      td.actions,
+      .line .actions,
+      .line .cell.actions {
+        overflow: visible !important;
+      }
+
+      .actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+
+        .action-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          padding: 4px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 4px;
+          transition: background-color 0.2s;
+
+          .material-icons {
+            color: $secondary-color;
+            font-size: 20px;
+
+            &:hover {
+              color: $details1-color;
+            }
+          }
+
+          .money {
+            background: $secondary-color;
+            border-radius: 10px;
+            color: $gray-2;
+            font-size: 16px;
+            padding: 2px;
+
+            &:hover {
+              background: $details1-color;
+              color: $gray-1;
+            }
+          }
+        }
+      }
+
     }
 
     td:first-child {
-      border-left: 1px solid $gray-secondary-bg;
+      border-left: 1px solid $gray-2;
     }
 
-    .action-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-      transition: background-color 0.2s;
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-      }
-
-      .material-icons {
-        color: $tertiary-color;
-        font-size: 20px;
-      }
-    }
   }
 
   .mini-toggle {
@@ -164,7 +199,7 @@ table {
       height: 0;
 
       &:checked + .mini-slider {
-        background-color: $tertiary-color;
+        background-color: $secondary-color;
 
         &::before {
           transform: translateX(12px);
@@ -201,7 +236,7 @@ table {
   display: flex;
   justify-content: space-between;
   gap: 10px;
-  color: dimgray;
+  color: $gray-3;
   font-size: 0.9rem;
 
   button {
@@ -209,9 +244,9 @@ table {
     padding: 0.5rem;
     cursor: pointer;
     border-radius: 4px;
-    background: $gray-primary-bg;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
-    border: 1px solid $gray-primary-bg;
+    background: $gray-2;
+    box-shadow: 0 2px 3px rgba(0,0,0,0.2);
+    border: 1px solid $gray-3;
     font-size: 0.9rem;
   }
 }

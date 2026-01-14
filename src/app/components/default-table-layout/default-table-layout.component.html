@@ -51,12 +51,19 @@
           @for (col of columns; track col.key) {
             <td class="cell">
               @if (col.type === 'actions') {
-                <button class="action-btn" (click)="onEdit(item)">
-                  <i class="material-icons edit">edit</i>
-                </button>
-                <button class="action-btn" (click)="onDelete(item)">
-                  <i class="material-icons delete">delete</i>
-                </button>
+                <div class="cell actions">
+                  <button class="action-btn" title="Editar" (click)="onEdit(item)">
+                    <i class="material-icons edit">edit</i>
+                  </button>
+                  <button class="action-btn" title="Deletar" (click)="onDelete(item)">
+                    <i class="material-icons delete">delete</i>
+                  </button>
+                  @if (tableName === 'Cadastro de Materiais') {
+                    <button class="action-btn" title="Mostrar histórico de preços" (click)="onShowPrices(id)">
+                      <i class="material-icons money">attach_money</i>
+                    </button>
+                  }
+                </div>
               } @else if (col.type === 'toggle') {
                 <label class="mini-toggle">
                   <input

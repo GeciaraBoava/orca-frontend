@@ -28,11 +28,13 @@ export class DefaultTableLayoutComponent<T extends object> {
   @Output() editClicked = new EventEmitter<T>();
   @Output() deleteClicked = new EventEmitter<T>();
   @Output() createClicked = new EventEmitter<void>();
+  @Output() showPricesClicked = new EventEmitter<number>();
   @Output() toggleStatus = new EventEmitter<T>();
 
   searchTerm = '';
   columnFilters: Record<string, string> = {};
   currentPage = 1;
+  id: number = 0;
 
   sortKey: keyof T | null = null;
   sortDirection: 'asc' | 'desc' = 'asc';
@@ -51,7 +53,7 @@ export class DefaultTableLayoutComponent<T extends object> {
 
     if (column?.type === 'date' && value) {
       const dateValue = new Date(value as string);
-      return this.datePipe.transform(dateValue, 'dd/MM/yy HH:mm:ss');
+      return this.datePipe.transform(dateValue, 'dd/MM/yy HH:mm');
     }
 
     return value;
@@ -67,6 +69,10 @@ export class DefaultTableLayoutComponent<T extends object> {
 
   onCreate() {
     this.createClicked.emit();
+  }
+
+  onShowPrices(id: number) {
+    this.showPricesClicked.emit(id);
   }
 
   onSearch(event: Event) {

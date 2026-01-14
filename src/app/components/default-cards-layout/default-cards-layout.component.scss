@@ -3,15 +3,15 @@
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
+  gap: 1rem;
   margin-bottom: 1rem;
 
   .card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.2rem 2rem;
-    background: $white-color;
+    padding: 0.8rem 2rem;
+    background: $gray-1;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     border-radius: 8px;
 
@@ -21,7 +21,7 @@
 
       .label {
         color: $secondary-color;
-        font-size: 1.3rem;
+        font-size: 1.1rem;
       }
 
       .quantity {
@@ -36,7 +36,7 @@
     }
 
     .layers { color: $secondary-color; }
-    .check { color: $details1-color; }
-    .disabled { color: darkgray; }
+    .check { color: $details2-color; }
+    .disabled { color: $gray-4; }
   }
 }

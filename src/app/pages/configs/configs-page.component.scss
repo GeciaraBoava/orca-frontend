@@ -17,29 +17,27 @@ main {
 
 .head {
   color: $secondary-color;
-  background: $gray-secondary-bg;
-  padding: 1rem;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  background: $gray-2;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: 8px;
 
-    .title-section {
-      background-color: $gray-secondary-bg;
-      color: $secondary-color;
-      border-radius: 6px;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
+  .title-section {
+    background-color: $gray-2;
+    color: $secondary-color;
+    border-radius: 6px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 
-      .material-icons {
-        font-size: 28px;
-      }
-
-      .icon {
-        color: $details2-color;
-      }
+    .material-icons {
+      font-size: 28px;
     }
+
+    .icon {
+      color: $details2-color;
+    }
+  }
 }
 
 
